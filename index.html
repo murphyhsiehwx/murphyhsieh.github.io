@@ -18,7 +18,6 @@
       --paper: #FAF8F4;
       --paper-warm: #F5F0E8;
       --divider: rgba(184,147,90,0.25);
-      /* 底部導覽高度，統一管理 */
       --nav-h: 60px;
     }
     html { scroll-behavior: smooth; }
@@ -28,7 +27,6 @@
       color: var(--ink);
       line-height: 1.75;
       -webkit-font-smoothing: antialiased;
-      /* 底部留白 = 導覽列高度 + iPhone safe area */
       padding-bottom: calc(var(--nav-h) + env(safe-area-inset-bottom));
     }
 
@@ -60,48 +58,12 @@
     .overview-inner { max-width: 780px; margin: 0 auto; padding: 0 24px; }
     .section-label { font-family: 'Cormorant Garamond', serif; font-size: 11px; letter-spacing: 0.55em; color: var(--gold); text-transform: uppercase; margin-bottom: 36px; display: flex; align-items: center; gap: 18px; }
     .section-label::after { content: ''; flex: 1; height: 1px; background: var(--divider); }
-
-    /*
-      時間軸核心修正：
-      桌機 → 正常 flex 排列
-      手機 → overflow-x scroll，單行橫划，不換行
-    */
-    .timeline-scroll-wrapper {
-      /* 手機：允許橫向捲動，避免換行 */
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      /* 隱藏 scrollbar 但保留功能 */
-      scrollbar-width: none;
-      margin: 0 -24px; /* 讓 scroll 延伸到螢幕邊緣 */
-      padding: 0 24px;
-    }
+    .timeline-scroll-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; margin: 0 -24px; padding: 0 24px; }
     .timeline-scroll-wrapper::-webkit-scrollbar { display: none; }
-
-    .timeline {
-      display: flex;
-      position: relative;
-      /* 手機：不換行，最小寬度讓每格夠用 */
-      min-width: max-content;
-    }
-    .timeline::before {
-      content: ''; position: absolute;
-      /* 連接線從第一個點到最後一個點 */
-      top: 54px; left: calc(10% + 6px); right: calc(10% + 6px);
-      height: 1px; background: var(--divider); z-index: 0;
-    }
-
-    .timeline a.tl-day {
-      /* 桌機：等比分配；手機：固定寬度 */
-      flex: 1;
-      min-width: 100px; /* 手機最小觸控寬度 */
-      display: flex; flex-direction: column; align-items: center;
-      position: relative; z-index: 1; padding: 0 6px;
-      text-decoration: none; color: inherit; cursor: pointer;
-      transition: background-color 0.2s;
-      border-radius: 8px;
-    }
+    .timeline { display: flex; position: relative; min-width: max-content; }
+    .timeline::before { content: ''; position: absolute; top: 54px; left: calc(10% + 6px); right: calc(10% + 6px); height: 1px; background: var(--divider); z-index: 0; }
+    .timeline a.tl-day { flex: 1; min-width: 100px; display: flex; flex-direction: column; align-items: center; position: relative; z-index: 1; padding: 0 6px; text-decoration: none; color: inherit; cursor: pointer; transition: background-color 0.2s; border-radius: 8px; }
     .timeline a.tl-day:active { background-color: rgba(184,147,90,0.06); }
-
     .tl-num { font-family: 'Cormorant Garamond', serif; font-size: 1.45rem; font-weight: 300; color: var(--gold); line-height: 1; margin-bottom: 4px; }
     .tl-date { font-size: 10px; color: var(--ink-mute); letter-spacing: 0.08em; margin-bottom: 10px; text-align: center; white-space: nowrap; }
     .tl-dot { width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--gold); background: #fff; margin-bottom: 10px; flex-shrink: 0; }
@@ -170,91 +132,40 @@
     .bar-name a { color: inherit; text-decoration: none; border-bottom: 1px solid rgba(184,147,90,0.4); }
     .bar-desc { font-size: 13px; color: rgba(255,255,255,0.48); line-height: 1.75; }
 
-    /* ─── CHECKLIST ─── */
-    .checklist-group { margin-bottom: 28px; }
-    .checklist-group h3 { font-size: 13px; color: var(--gold); margin-bottom: 12px; letter-spacing: 0.15em; font-family: 'Noto Serif TC', serif; border-bottom: 1px solid var(--divider); padding-bottom: 6px; }
-    .check-item {
-      display: flex; align-items: center;
-      padding: 13px 16px;
-      background: #fff; border: 1px solid var(--divider);
-      border-radius: 6px; margin-bottom: 8px;
-      cursor: pointer; transition: border-color 0.2s, background 0.2s;
-      /* 讓整個 label 都可點擊 */
-      -webkit-user-select: none; user-select: none;
-    }
-    .check-item:active { background: var(--paper-warm); }
-    .check-item input[type="checkbox"] {
-      width: 18px; height: 18px; min-width: 18px;
-      margin-right: 14px; accent-color: var(--gold);
-      cursor: pointer;
-    }
-    .check-item span { font-size: 14px; flex: 1; transition: 0.2s; line-height: 1.5; }
-    .check-item input[type="checkbox"]:checked + span { text-decoration: line-through; color: var(--ink-mute); }
-    .check-item:has(input:checked) { background: #fafafa; border-color: rgba(184,147,90,0.15); }
+    /* ─── 備用清單樣式 (Page 2) ─── */
+    .backup-category { margin-bottom: 30px; }
+    .backup-category h3 { font-size: 14px; color: var(--gold); margin-bottom: 12px; letter-spacing: 0.1em; font-family: 'Noto Serif TC', serif; border-bottom: 1px solid var(--divider); padding-bottom: 6px; }
+    .backup-card { background: #fff; border: 1px solid var(--divider); border-radius: 6px; padding: 14px 16px; margin-bottom: 10px; display: flex; align-items: center; gap: 14px; transition: 0.2s; text-decoration: none; color: inherit; }
+    .backup-card:active { background: var(--paper-warm); }
+    .backup-emoji { font-size: 20px; flex-shrink: 0; }
+    .backup-info { flex: 1; }
+    .backup-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 2px; }
+    .backup-desc { font-size: 12px; color: var(--ink-mute); }
 
-    /* 進度條 */
-    .checklist-progress { margin-bottom: 28px; }
-    .progress-label { display: flex; justify-content: space-between; font-size: 12px; color: var(--ink-mute); margin-bottom: 8px; }
-    .progress-bar-bg { height: 4px; background: var(--divider); border-radius: 4px; overflow: hidden; }
-    .progress-bar-fill { height: 100%; background: var(--gold); border-radius: 4px; transition: width 0.4s ease; }
-
-    /* ─── 票券憑證 ─── */
-    .ticket-card { background: #fff; border-radius: 6px; padding: 22px; margin-bottom: 20px; border: 1px solid var(--divider); position: relative; overflow: hidden; }
-    .ticket-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--gold); }
-    .ticket-type { font-size: 10.5px; color: var(--ink-mute); letter-spacing: 0.12em; font-weight: 600; margin-bottom: 6px; font-family: 'Cormorant Garamond', serif; text-transform: uppercase; }
-    .ticket-title { font-family: 'Noto Serif TC', serif; font-size: 1.1rem; font-weight: 500; margin-bottom: 14px; color: var(--ink); }
-    .ticket-info { font-size: 13px; color: var(--ink-soft); line-height: 1.75; margin-bottom: 18px; background: var(--paper-warm); padding: 12px 14px; border-radius: 4px; }
-    .ticket-info strong { color: var(--ink); }
-
-    /* QR / 圖片區塊 */
-    .ticket-image-slot {
-      width: 100%; min-height: 200px;
-      background: #fafafa; border-radius: 4px;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      color: var(--ink-mute); font-size: 12.5px; letter-spacing: 0.05em;
-      border: 1.5px dashed rgba(184,147,90,0.4);
-      padding: 24px; gap: 10px; text-align: center;
-    }
-    .ticket-image-slot svg { width: 36px; height: 36px; stroke: var(--gold-light); fill: none; stroke-width: 1.5; }
-    /* 當 img 被放進去時：正常顯示 */
-    .ticket-image-slot img { width: 100%; border-radius: 4px; display: block; }
-
-    /* 操作步驟 */
-    .steps { counter-reset: step; margin-top: 14px; }
-    .step { display: flex; gap: 14px; margin-bottom: 12px; align-items: flex-start; }
-    .step-num {
-      counter-increment: step;
-      width: 24px; height: 24px; min-width: 24px;
-      border-radius: 50%; background: var(--gold); color: #fff;
-      font-size: 11px; font-weight: 600;
-      display: flex; align-items: center; justify-content: center;
-      margin-top: 1px;
-    }
-    .step-text { font-size: 13px; color: var(--ink-soft); line-height: 1.65; flex: 1; }
-    .step-text strong { color: var(--ink); }
+    /* ─── 日文短句卡片樣式 (Page 3) ─── */
+    .phrase-list { display: flex; flex-direction: column; gap: 12px; }
+    .phrase-card { background: #fff; border: 1px solid var(--divider); border-radius: 8px; padding: 18px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; transition: 0.2s; position: relative; overflow: hidden; }
+    .phrase-card:active { background: var(--paper-warm); transform: scale(0.98); }
+    .phrase-content { flex: 1; }
+    .phrase-ch { font-size: 13px; color: var(--gold); font-weight: 600; margin-bottom: 6px; letter-spacing: 0.05em; }
+    .phrase-jp { font-size: 18px; font-weight: 500; color: var(--ink); margin-bottom: 4px; }
+    .phrase-ro { font-size: 11px; color: var(--ink-mute); letter-spacing: 0.05em; }
+    .play-btn { width: 36px; height: 36px; border-radius: 50%; background: var(--paper-warm); border: 1px solid var(--divider); display: flex; align-items: center; justify-content: center; font-size: 18px; color: var(--gold); border: none; flex-shrink: 0; margin-left: 16px; }
 
     /* ─── 底部導覽列 ─── */
     .bottom-nav {
-      position: fixed; bottom: 0; left: 0; right: 0;
-      height: var(--nav-h);
-      /* iPhone safe-area 額外留白 */
+      position: fixed; bottom: 0; left: 0; right: 0; height: var(--nav-h);
       padding-bottom: env(safe-area-inset-bottom);
-      background: rgba(255,255,255,0.97);
-      border-top: 1px solid rgba(0,0,0,0.07);
+      background: rgba(255,255,255,0.97); border-top: 1px solid rgba(0,0,0,0.07);
       display: flex; justify-content: space-around; align-items: stretch;
-      z-index: 1000;
-      box-shadow: 0 -4px 20px rgba(0,0,0,0.04);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      z-index: 1000; box-shadow: 0 -4px 20px rgba(0,0,0,0.04);
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
     }
     .nav-btn {
       display: flex; flex-direction: column; align-items: center; justify-content: center;
-      flex: 1; height: 100%;
-      color: #aaa; font-size: 10.5px; font-weight: 500;
-      letter-spacing: 0.04em; gap: 5px;
-      border: none; background: transparent; cursor: pointer;
-      transition: color 0.2s;
-      padding-bottom: 2px;
+      flex: 1; height: 100%; color: #aaa; font-size: 10.5px; font-weight: 500;
+      letter-spacing: 0.04em; gap: 5px; border: none; background: transparent; cursor: pointer;
+      transition: color 0.2s; padding-bottom: 2px;
     }
     .nav-btn svg { width: 21px; height: 21px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.2s; }
     .nav-btn.active { color: var(--gold); }
@@ -263,7 +174,6 @@
 
     /* ─── 桌機版 responsive ─── */
     @media (min-width: 641px) {
-      /* 桌機：時間軸不需要 scroll，正常鋪滿 */
       .timeline-scroll-wrapper { overflow-x: visible; margin: 0; padding: 0; }
       .timeline { min-width: unset; }
       .timeline a.tl-day { min-width: unset; flex: 1; }
@@ -272,30 +182,22 @@
 
     @media (max-width: 640px) {
       .day-card { grid-template-columns: 1fr; gap: 0; }
-      .day-meta {
-        text-align: left; border-right: none;
-        border-bottom: 1px solid var(--divider);
-        padding-right: 0; padding-bottom: 12px; margin-bottom: 20px;
-        display: flex; align-items: baseline; gap: 14px;
-      }
+      .day-meta { text-align: left; border-right: none; border-bottom: 1px solid var(--divider); padding-right: 0; padding-bottom: 12px; margin-bottom: 20px; display: flex; align-items: baseline; gap: 14px; }
       .day-num { font-size: 2.4rem; }
       .day-weather-badge { flex-direction: row; align-items: center; gap: 6px; }
       .bar-guide { padding: 28px 20px; }
-      .rest-info { display: none; } /* 手機版隱藏右側時間，避免擠壓 */
+      .rest-info { display: none; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ════════════════════════════
-       PAGE 1: 行程
-  ════════════════════════════ -->
   <section id="page-itinerary" class="page-section active">
 
     <header class="hero">
       <div class="hero-kana">Kansai Golden Week 2026</div>
       <h1>關西黃金週<br><span>京都深度五日</span></h1>
-      <div class="hero-sub">4 / 30 — 5 / 4 · Boutique &amp; Slow Travel</div>
+      <div class="hero-sub">4 / 30 — 5 / 4 · Boutique & Slow Travel</div>
       <div class="hero-ornament">
         <div class="ornament-line"></div>
         <div class="ornament-dot"></div>
@@ -303,12 +205,9 @@
       </div>
     </header>
 
-    <!-- OVERVIEW -->
     <section class="overview-wrap">
       <div class="overview-inner">
         <div class="section-label">Five-Day Overview</div>
-
-        <!-- 手機橫向 scroll 包裝層 -->
         <div class="timeline-scroll-wrapper">
           <div class="timeline">
             <a href="#day-01" class="tl-day" onclick="scrollToDay(event,'day-01')">
@@ -361,11 +260,9 @@
       </div>
     </section>
 
-    <!-- DAILY DETAIL -->
     <main class="guide-body">
       <div class="section-label">Day by Day Itinerary</div>
 
-      <!-- DAY 01 -->
       <div class="day-card" id="day-01">
         <div class="day-meta">
           <span class="day-num">01</span>
@@ -424,17 +321,12 @@
           </div>
           <div class="note-block">💡 雨天備折傘，八条口出口有便利商店可補傘。建議先放行李 → 逛藥妝 → 晚餐，行程不趕。</div>
           <div class="day-photo">
-            <img
-              src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=900&auto=format&fit=crop&q=80"
-              alt="京都夜景"
-              onerror="this.src='https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=900&auto=format&fit=crop&q=80'"
-            >
+            <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=900&auto=format&fit=crop&q=80" alt="京都夜景">
             <div class="photo-caption">京都 · 入夜抵達</div>
           </div>
         </div>
       </div>
 
-      <!-- DAY 02 -->
       <div class="day-card" id="day-02">
         <div class="day-meta">
           <span class="day-num">02</span>
@@ -453,13 +345,15 @@
               <div class="item-desc">09:00 開門，百年京町家改建，空間極美。推薦喝完後步行至南禪寺或蹴上傾斜鐵道散步。</div>
             </div>
           </div>
+
           <div class="item-row">
             <div class="item-icon"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
             <div class="item-body">
-              <div class="item-title">午餐：<a href="https://www.google.com/maps/search/大力邸+京都+壽喜燒" target="_blank" rel="noopener">大力邸</a>　和牛壽喜燒</div>
-              <div class="item-desc">11:30 開門，稍早抵達排隊，雨天人潮相對少是好機會。</div>
+              <div class="item-title">11:30 <a href="https://www.google.com/maps/search/大力邸+京都+壽喜燒" target="_blank" rel="noopener">大力邸</a>（✓ 已預約付款）</div>
+              <div class="item-desc">和牛壽喜燒。已完成預訂與付款手續，直接前往入座享受豐盛午餐。</div>
             </div>
           </div>
+
           <div class="item-row">
             <div class="item-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/></svg></div>
             <div class="item-body">
@@ -475,7 +369,7 @@
             </div>
           </div>
           <div class="rest-block">
-            <div class="rest-block-header">市區小店與景點</div>
+            <div class="rest-block-header">市區小店與景點散策</div>
             <div class="rest-list">
               <div class="rest-item">
                 <span class="rest-tag tag-option">景點</span>
@@ -484,7 +378,7 @@
               </div>
               <div class="rest-item">
                 <span class="rest-tag tag-option">選物</span>
-                <span class="rest-name"><a href="https://maps.app.goo.gl/QtG8enG3QCWmCCVf8" target="_blank" rel="noopener">D&amp;DEPARTMENT KYOTO</a></span>
+                <span class="rest-name"><a href="https://maps.app.goo.gl/QtG8enG3QCWmCCVf8" target="_blank" rel="noopener">D&DEPARTMENT KYOTO</a></span>
                 <span class="rest-info">強力推薦</span>
               </div>
               <div class="rest-item">
@@ -517,17 +411,12 @@
             </div>
           </div>
           <div class="day-photo">
-            <img
-              src="https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=900&auto=format&fit=crop&q=80"
-              alt="京都街道雨中"
-              onerror="this.src='https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=900&auto=format&fit=crop&q=80'"
-            >
+            <img src="https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=900&auto=format&fit=crop&q=80" alt="京都街道雨中">
             <div class="photo-caption">漫步京都 · 雨中即景</div>
           </div>
         </div>
       </div>
 
-      <!-- DAY 03 -->
       <div class="day-card" id="day-03">
         <div class="day-meta">
           <span class="day-num">03</span>
@@ -596,18 +485,13 @@
           </div>
           <div class="note-block">🍶 宇治 ←→ 伏見搭近鐵約 15 分鐘。伏見：月桂冠大倉紀念館清酒試飲＋十石舟遊覧。</div>
           <div class="day-photo">
-            <img
-              src="https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=900&auto=format&fit=crop&q=80"
-              alt="宇治抹茶景色"
-              onerror="this.src='https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=900&auto=format&fit=crop&q=80'"
-            >
+            <img src="https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=900&auto=format&fit=crop&q=80" alt="宇治抹茶景色">
             <div class="photo-caption">宇治 · 抹茶の里</div>
           </div>
           <div class="day-narrative">宇治空氣中飄著清新茶香，除了預約好的對鳳庵茶道，今天把滿滿的抹茶伴手禮買齊吧。若體力允許下午轉伏見，古老酒藏石牆巷弄的氛圍截然不同。兩種節奏任君選擇。</div>
         </div>
       </div>
 
-      <!-- DAY 04 -->
       <div class="day-card" id="day-04">
         <div class="day-meta">
           <span class="day-num">04</span>
@@ -660,18 +544,13 @@
             </div>
           </div>
           <div class="day-photo">
-            <img
-              src="https://images.unsplash.com/photo-1542640244-7e672d6cef4e?w=900&auto=format&fit=crop&q=80"
-              alt="天橋立 日本三景"
-              onerror="this.src='https://images.unsplash.com/photo-1480796927426-f609979314bd?w=900&auto=format&fit=crop&q=80'"
-            >
+            <img src="https://images.unsplash.com/photo-1542640244-7e672d6cef4e?w=900&auto=format&fit=crop&q=80" alt="天橋立 日本三景">
             <div class="photo-caption">天橋立 · 日本三景之一</div>
           </div>
           <div class="day-narrative">天橋立如翠綠松林橫跨海灣，在觀景台倒著看，松林化為騰空之橋，絕妙難忘。伊根的舟屋依水而建，寧靜到讓人不想離開。這天的天氣最好，好好珍惜。</div>
         </div>
       </div>
 
-      <!-- DAY 05 -->
       <div class="day-card" id="day-05">
         <div class="day-meta">
           <span class="day-num">05</span>
@@ -720,185 +599,185 @@
             </div>
           </div>
           <div class="day-photo">
-            <img
-              src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=900&auto=format&fit=crop&q=80"
-              alt="機場離境"
-              onerror="this.src='https://images.unsplash.com/photo-1483450388369-9ed95738483c?w=900&auto=format&fit=crop&q=80'"
-            >
+            <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=900&auto=format&fit=crop&q=80" alt="機場離境">
             <div class="photo-caption">關西機場 KIX · 13:10 起飛</div>
           </div>
-        </div>
-      </div>
-
-      <div class="bar-guide">
-        <div class="bar-guide-label">After Hours</div>
-        <h3>深夜酒館指南</h3>
-        <div class="bar-item">
-          <div class="bar-name"><a href="https://www.google.com/maps/search/Sake+Bar+Yoramu+京都" target="_blank" rel="noopener">Sake Bar Yoramu</a></div>
-          <div class="bar-desc">以色列老闆精選高品質清酒，不提供調酒，一場跨越國界的清酒深度旅程。適合 Day 1 抵達後或 Day 2 晚餐後造訪。</div>
-        </div>
-        <div class="bar-item">
-          <div class="bar-name"><a href="https://www.google.com/maps/search/Kyoto+Beer+Lab" target="_blank" rel="noopener">Kyoto Beer Lab</a></div>
-          <div class="bar-desc">氣氛放鬆的在地精釀吧，以抹茶、焙茶等京都特色原料釀造，最適合 Day 3 宇治回來後卸下疲憊。</div>
         </div>
       </div>
     </main>
   </section>
 
 
-  <!-- ════════════════════════════
-       PAGE 2: 行前清單
-  ════════════════════════════ -->
-  <section id="page-checklist" class="page-section">
+  <section id="page-places" class="page-section">
     <div class="page-header">
-      <h2 class="page-title">行前準備清單</h2>
-      <div class="page-subtitle">Pre-Trip Checklist</div>
+      <h2 class="page-title">景點與餐廳備案</h2>
+      <div class="page-subtitle">Backup Locations</div>
     </div>
     <div class="page-content">
 
-      <!-- 進度條 -->
-      <div class="checklist-progress">
-        <div class="progress-label">
-          <span>整體完成度</span>
-          <span id="progress-text">0 / 0</span>
-        </div>
-        <div class="progress-bar-bg">
-          <div class="progress-bar-fill" id="progress-fill" style="width:0%"></div>
-        </div>
-      </div>
-
-      <div class="checklist-group">
-        <h3>📋 重要證件</h3>
-        <label class="check-item"><input type="checkbox" id="chk-passport"><span>護照（確認效期大於 6 個月）</span></label>
-        <label class="check-item"><input type="checkbox" id="chk-vjw"><span>Visit Japan Web 填寫完成並截圖</span></label>
-        <label class="check-item"><input type="checkbox" id="chk-insurance"><span>旅遊保險確認（保單存手機）</span></label>
-        <label class="check-item"><input type="checkbox" id="chk-card"><span>信用卡確認可在日本使用</span></label>
-      </div>
-
-      <div class="checklist-group">
-        <h3>📱 電子設定</h3>
-        <label class="check-item"><input type="checkbox" id="chk-esim"><span>eSIM 購買與手機開通設定</span></label>
-        <label class="check-item"><input type="checkbox" id="chk-ic"><span>Apple Wallet / Google Pay 綁定 ICOCA</span></label>
-        <label class="check-item"><input type="checkbox" id="chk-haruka"><span>Haruka 特急票下載至手機</span></label>
-        <label class="check-item"><input type="checkbox" id="chk-kkday"><span>KKday 一日遊憑證下載確認</span></label>
-        <label class="check-item"><input type="checkbox" id="chk-tea"><span>對鳳庵茶道體驗預約確認信</span></label>
-        <label class="check-item"><input type="checkbox" id="chk-rest"><span>Gion Yakiniku 訂位確認信</span></label>
-      </div>
-
-      <div class="checklist-group">
-        <h3>🧳 行李必帶</h3>
-        <label class="check-item"><input type="checkbox" id="chk-powerbank"><span>行動電源與快充線（超重要）</span></label>
-        <label class="check-item"><input type="checkbox" id="chk-umbrella"><span>輕便摺疊傘（4/30–5/1 有雨）</span></label>
-        <label class="check-item"><input type="checkbox" id="chk-meds"><span>常備藥品（腸胃藥、止痛藥、OK繃）</span></label>
-        <label class="check-item"><input type="checkbox" id="chk-bag"><span>輕便帆布袋（購物備用）</span></label>
-        <label class="check-item"><input type="checkbox" id="chk-layer"><span>洋蔥式穿搭備好（早晚溫差大）</span></label>
-      </div>
-
-      <div class="checklist-group">
-        <h3>🏨 出發前確認</h3>
-        <label class="check-item"><input type="checkbox" id="chk-hotel"><span>飯店 check-in 時間與地址截圖</span></label>
-        <label class="check-item"><input type="checkbox" id="chk-offline"><span>Google Maps 離線地圖下載（關西地區）</span></label>
-        <label class="check-item"><input type="checkbox" id="chk-yen"><span>日幣兌換或確認機場 ATM 提款方式</span></label>
-        <label class="check-item"><input type="checkbox" id="chk-notify"><span>通知銀行出國使用（避免刷卡被擋）</span></label>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ════════════════════════════
-       PAGE 3: 票券憑證
-  ════════════════════════════ -->
-  <section id="page-tickets" class="page-section">
-    <div class="page-header">
-      <h2 class="page-title">票券與憑證</h2>
-      <div class="page-subtitle">E-Tickets &amp; Vouchers</div>
-    </div>
-    <div class="page-content">
-
-      <!-- 票券 1 -->
-      <div class="ticket-card">
-        <div class="ticket-type">✈️ 交通電子票</div>
-        <div class="ticket-title">JR Haruka 關西機場特急</div>
-        <div class="ticket-info">
-          <strong>使用日期：</strong>4/30（去程）・5/4（回程）<br>
-          <strong>使用方式：</strong>持護照及此 QR Code 至關西機場 JR 綠色售票機（標有 Passport 字樣）兌換實體車票，或直接至人工窗口。
-        </div>
-        <div class="steps">
-          <div class="step"><div class="step-num">1</div><div class="step-text">入境後前往 <strong>JR 關西機場站</strong>，找「綠色售票機」</div></div>
-          <div class="step"><div class="step-num">2</div><div class="step-text">選擇「外國旅客優惠票券」→ 掃描護照</div></div>
-          <div class="step"><div class="step-num">3</div><div class="step-text">出示或掃描以下 QR Code 完成兌換，領取實體票</div></div>
-          <div class="step"><div class="step-num">4</div><div class="step-text">持票進閘，搭乘指定車次，<strong>請提前劃位</strong></div></div>
-        </div>
-        <div style="margin-top:16px;">
-          <div class="ticket-image-slot">
-            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 14h.01M14 17h.01M17 14h.01M17 17h.01M20 14h.01M20 17h.01M20 20h.01"/></svg>
-            將 Haruka 憑證截圖貼至此處
+      <div class="backup-category">
+        <h3>🍽️ 餐廳與居酒屋備案</h3>
+        
+        <a href="#" target="_blank" class="backup-card">
+          <div class="backup-emoji">🍜</div>
+          <div class="backup-info">
+            <div class="backup-name">豬一拉麵 (麵屋 豬一)</div>
+            <div class="backup-desc">米其林必比登推薦，白醬油拉麵</div>
           </div>
-        </div>
+        </a>
+
+        <a href="#" target="_blank" class="backup-card">
+          <div class="backup-emoji">🍢</div>
+          <div class="backup-info">
+            <div class="backup-name">先斗町 居酒屋街</div>
+            <div class="backup-desc">晚上若無行程，來這裡隨意挑一間氣氛好的</div>
+          </div>
+        </a>
       </div>
 
-      <!-- 票券 2 -->
-      <div class="ticket-card">
-        <div class="ticket-type">🚌 一日遊憑證</div>
-        <div class="ticket-title">天橋立・伊根 KKday 一日遊</div>
-        <div class="ticket-info">
-          <strong>日期：</strong>5/03（日）<br>
-          <strong>集合時間：</strong>08:00（請提前 10 分鐘抵達）<br>
-          <strong>集合地點：</strong>京都站八條口觀光巴士乘車處<br>
-          <strong>使用方式：</strong>上車時直接出示手機 App 訂單畫面或以下截圖，由導遊確認即可。
-        </div>
-        <div class="steps">
-          <div class="step"><div class="step-num">1</div><div class="step-text">07:50 前抵達 <strong>京都站八條口</strong> 觀光巴士站</div></div>
-          <div class="step"><div class="step-num">2</div><div class="step-text">找到 KKday 看板或導遊人員</div></div>
-          <div class="step"><div class="step-num">3</div><div class="step-text">出示手機訂單或以下截圖確認人數</div></div>
-        </div>
-        <div style="margin-top:16px;">
-          <div class="ticket-image-slot">
-            <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-            將 KKday 訂單截圖貼至此處
+      <div class="backup-category">
+        <h3>☕ 景點與咖啡廳備案</h3>
+        
+        <a href="#" target="_blank" class="backup-card">
+          <div class="backup-emoji">⛩️</div>
+          <div class="backup-info">
+            <div class="backup-name">南禪寺 & 蹴上傾斜鐵道</div>
+            <div class="backup-desc">Blue Bottle 喝完若天氣好，可以順路走走</div>
           </div>
-        </div>
+        </a>
+
+        <a href="#" target="_blank" class="backup-card">
+          <div class="backup-emoji">☕</div>
+          <div class="backup-info">
+            <div class="backup-name">% ARABICA 京都東山店</div>
+            <div class="backup-desc">八坂塔旁邊的網美咖啡，需排隊</div>
+          </div>
+        </a>
       </div>
 
-      <!-- 票券 3 -->
-      <div class="ticket-card">
-        <div class="ticket-type">🍵 體驗預約</div>
-        <div class="ticket-title">對鳳庵 抹茶茶道體驗</div>
-        <div class="ticket-info">
-          <strong>日期：</strong>5/02（六）11:15<br>
-          <strong>地點：</strong>宇治市 對鳳庵<br>
-          <strong>注意：</strong>請準時抵達，遲到可能無法入場。茶道體驗約 30–45 分鐘。
-        </div>
-        <div style="margin-top:16px;">
-          <div class="ticket-image-slot">
-            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 14h.01M14 17h.01M17 14h.01M17 17h.01M20 14h.01M20 17h.01M20 20h.01"/></svg>
-            將茶道預約確認信截圖貼至此處
+      <div class="backup-category">
+        <h3>🛍️ 伴手禮與購物備案</h3>
+        
+        <a href="#" target="_blank" class="backup-card">
+          <div class="backup-emoji">🍵</div>
+          <div class="backup-info">
+            <div class="backup-name">辻利 伊勢丹宇治茶店</div>
+            <div class="backup-desc">京都車站內，沒去宇治也能買到</div>
           </div>
-        </div>
+        </a>
+
+        <a href="#" target="_blank" class="backup-card">
+          <div class="backup-emoji">🎁</div>
+          <div class="backup-info">
+            <div class="backup-name">錦市場 & 錦天滿宮</div>
+            <div class="backup-desc">京都的廚房，適合買醃漬物與小零食</div>
+          </div>
+        </a>
+      </div>
+
+      <div class="note-block">
+        💡 <b>提示：</b> 你可以把這頁當作你的「口袋名單」。如果當天行程提早結束，或是原本排的店沒開，就可以打開這頁直接導航過去！
       </div>
 
     </div>
   </section>
 
 
-  <!-- ════════════════════════
-       BOTTOM NAV
-  ════════════════════════ -->
+  <section id="page-japanese" class="page-section">
+    <div class="page-header">
+      <h2 class="page-title">實用日文短句</h2>
+      <div class="page-subtitle">Useful Phrases</div>
+    </div>
+    <div class="page-content">
+
+      <div class="note-block" style="margin-bottom: 24px; margin-top: 0;">
+        🔊 <b>點擊卡片右側的喇叭</b>，可以直接播放日文發音，問路或點餐時直接放給店員聽！
+      </div>
+
+      <div class="phrase-list">
+        
+        <div class="phrase-card" onclick="speakJapanese('ありがとうございます')">
+          <div class="phrase-content">
+            <div class="phrase-ch">謝謝（萬用）</div>
+            <div class="phrase-jp">ありがとうございます</div>
+            <div class="phrase-ro">Arigatou gozaimasu</div>
+          </div>
+          <button class="play-btn">🔊</button>
+        </div>
+
+        <div class="phrase-card" onclick="speakJapanese('すみません')">
+          <div class="phrase-content">
+            <div class="phrase-ch">不好意思 / 請問一下</div>
+            <div class="phrase-jp">すみません</div>
+            <div class="phrase-ro">Sumimasen</div>
+          </div>
+          <button class="play-btn">🔊</button>
+        </div>
+
+        <div class="phrase-card" onclick="speakJapanese('これをください')">
+          <div class="phrase-content">
+            <div class="phrase-ch">請給我這個（點餐指菜單用）</div>
+            <div class="phrase-jp">これをください</div>
+            <div class="phrase-ro">Kore o kudasai</div>
+          </div>
+          <button class="play-btn">🔊</button>
+        </div>
+
+        <div class="phrase-card" onclick="speakJapanese('お会計お願いします')">
+          <div class="phrase-content">
+            <div class="phrase-ch">麻煩結帳</div>
+            <div class="phrase-jp">お会計お願いします</div>
+            <div class="phrase-ro">Okaikei onegai shimasu</div>
+          </div>
+          <button class="play-btn">🔊</button>
+        </div>
+
+        <div class="phrase-card" onclick="speakJapanese('カードは使えますか')">
+          <div class="phrase-content">
+            <div class="phrase-ch">請問可以刷卡嗎？</div>
+            <div class="phrase-jp">カードは使えますか</div>
+            <div class="phrase-ro">Kaado wa tsukaemasu ka?</div>
+          </div>
+          <button class="play-btn">🔊</button>
+        </div>
+
+        <div class="phrase-card" onclick="speakJapanese('お手洗いはどこですか')">
+          <div class="phrase-content">
+            <div class="phrase-ch">請問洗手間在哪裡？</div>
+            <div class="phrase-jp">お手洗いはどこですか</div>
+            <div class="phrase-ro">Otearai wa doko desu ka?</div>
+          </div>
+          <button class="play-btn">🔊</button>
+        </div>
+
+        <div class="phrase-card" onclick="speakJapanese('おすすめはどれですか')">
+          <div class="phrase-content">
+            <div class="phrase-ch">請問推薦哪個呢？</div>
+            <div class="phrase-jp">おすすめはどれですか</div>
+            <div class="phrase-ro">Osusume wa dore desu ka?</div>
+          </div>
+          <button class="play-btn">🔊</button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
   <nav class="bottom-nav">
     <button class="nav-btn active" onclick="switchPage('page-itinerary', this)">
       <svg viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 002 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10z"/></svg>
       每日行程
     </button>
-    <button class="nav-btn" onclick="switchPage('page-checklist', this)">
-      <svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-      行前準備
+    <button class="nav-btn" onclick="switchPage('page-places', this)">
+      <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+      備用清單
     </button>
-    <button class="nav-btn" onclick="switchPage('page-tickets', this)">
-      <svg viewBox="0 0 24 24"><path d="M22 10V6c0-1.1-.9-2-2-2H4c-1.1 0-1.99.9-1.99 2v4c1.1 0 1.99.9 1.99 2s-.89 2-2 2v4c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2v-4c-1.1 0-2-.9-2-2s.9-2 2-2z"/></svg>
-      電子票券
+    <button class="nav-btn" onclick="switchPage('page-japanese', this)">
+      <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>
+      常用日文
     </button>
   </nav>
-
 
   <script>
     // ─── 分頁切換 ───
@@ -910,45 +789,37 @@
       window.scrollTo({ top: 0, behavior: 'instant' });
     }
 
-    // ─── 時間軸點擊 → 滾到對應 day-card ───
+    // ─── 時間軸點擊 ───
     function scrollToDay(e, id) {
       e.preventDefault();
-      // 先確保行程頁是 active
       document.querySelectorAll('.page-section').forEach(p => p.classList.remove('active'));
       document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
       document.getElementById('page-itinerary').classList.add('active');
-      document.querySelector('.nav-btn').classList.add('active');
+      document.querySelectorAll('.nav-btn')[0].classList.add('active');
 
-      // 等 DOM 渲染後再滾動
       requestAnimationFrame(() => {
         const el = document.getElementById(id);
         if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
     }
 
-    // ─── Checklist localStorage + 進度條 ───
-    document.addEventListener('DOMContentLoaded', () => {
-      const boxes = document.querySelectorAll('.check-item input[type="checkbox"]');
-
-      function updateProgress() {
-        const total = boxes.length;
-        const checked = [...boxes].filter(b => b.checked).length;
-        document.getElementById('progress-text').textContent = `${checked} / ${total}`;
-        document.getElementById('progress-fill').style.width = `${(checked / total) * 100}%`;
+    // ─── 語音播放功能 (Speech Synthesis API) ───
+    function speakJapanese(text) {
+      // 檢查瀏覽器是否支援
+      if ('speechSynthesis' in window) {
+        // 先中斷目前可能正在播放的聲音
+        window.speechSynthesis.cancel(); 
+        
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'ja-JP'; // 設定為日文發音
+        utterance.rate = 0.85;    // 語速稍微放慢一點，讓店員聽得更清楚
+        utterance.pitch = 1;      // 音調正常
+        
+        window.speechSynthesis.speak(utterance);
+      } else {
+        alert('抱歉，您的瀏覽器不支援語音播放功能喔！');
       }
-
-      boxes.forEach(box => {
-        // 從 localStorage 恢復狀態
-        if (localStorage.getItem('kyoto26_' + box.id) === '1') box.checked = true;
-        // 監聽變更
-        box.addEventListener('change', () => {
-          localStorage.setItem('kyoto26_' + box.id, box.checked ? '1' : '0');
-          updateProgress();
-        });
-      });
-
-      updateProgress(); // 初始化進度條
-    });
+    }
   </script>
 </body>
 </html>
