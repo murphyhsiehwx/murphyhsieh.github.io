@@ -30,7 +30,6 @@
       padding-bottom: calc(var(--nav-h) + env(safe-area-inset-bottom) + 8px);
     }
 
-    /* ─── PAGE SWITCH ─── */
     .page-section { display: none; }
     .page-section.active { display: block; animation: fadeIn 0.22s ease; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(7px); } to { opacity: 1; transform: translateY(0); } }
@@ -40,7 +39,7 @@
     .page-subtitle { font-family: 'Cormorant Garamond', serif; font-size: 11px; letter-spacing: 0.3em; color: var(--gold); text-transform: uppercase; margin-top: 8px; }
     .page-content { max-width: 780px; margin: 0 auto; padding: 0 20px 40px; }
 
-    /* ─── HERO ─── */
+    /* HERO */
     .hero { background: #1C1C1C; color: #fff; text-align: center; padding: 64px 24px 52px; position: relative; overflow: hidden; }
     .hero::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,255,255,0.022) 39px, rgba(255,255,255,0.022) 40px); pointer-events: none; }
     .hero-kana { font-family: 'Cormorant Garamond', serif; font-size: 11px; letter-spacing: 0.55em; color: var(--gold-light); text-transform: uppercase; margin-bottom: 20px; position: relative; }
@@ -52,24 +51,32 @@
     .ornament-line.r { background: linear-gradient(90deg, var(--gold), transparent); }
     .ornament-dot { width: 6px; height: 6px; background: var(--gold); transform: rotate(45deg); }
 
-    /* ─── OVERVIEW ─── */
+    /* OVERVIEW */
     .overview-wrap { background: #fff; border-bottom: 1px solid var(--divider); padding: 44px 0 48px; }
     .overview-inner { max-width: 780px; margin: 0 auto; padding: 0 24px; }
     .section-label { font-family: 'Cormorant Garamond', serif; font-size: 11px; letter-spacing: 0.55em; color: var(--gold); text-transform: uppercase; margin-bottom: 36px; display: flex; align-items: center; gap: 18px; }
     .section-label::after { content: ''; flex: 1; height: 1px; background: var(--divider); }
+
+    /* Timeline */
     .timeline-scroll-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; margin: 0 -24px; padding: 0 24px; }
     .timeline-scroll-wrapper::-webkit-scrollbar { display: none; }
     .timeline { display: flex; position: relative; min-width: max-content; }
     .timeline::before { content: ''; position: absolute; top: 54px; left: calc(10% + 6px); right: calc(10% + 6px); height: 1px; background: var(--divider); z-index: 0; }
-    .timeline a.tl-day { flex: 1; min-width: 100px; display: flex; flex-direction: column; align-items: center; position: relative; z-index: 1; padding: 0 6px; text-decoration: none; color: inherit; cursor: pointer; transition: background-color 0.2s; border-radius: 8px; }
+    .timeline a.tl-day { flex: 1; min-width: 106px; display: flex; flex-direction: column; align-items: center; position: relative; z-index: 1; padding: 0 6px; text-decoration: none; color: inherit; cursor: pointer; transition: background-color 0.2s; border-radius: 8px; }
     .timeline a.tl-day:active { background-color: rgba(184,147,90,0.06); }
     .tl-num { font-family: 'Cormorant Garamond', serif; font-size: 1.45rem; font-weight: 300; color: var(--gold); line-height: 1; margin-bottom: 4px; }
     .tl-date { font-size: 10px; color: var(--ink-mute); letter-spacing: 0.08em; margin-bottom: 10px; text-align: center; white-space: nowrap; }
     .tl-dot { width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--gold); background: #fff; margin-bottom: 10px; flex-shrink: 0; }
+
+    /* 天氣區塊：支援 JS 動態注入 */
+    .tl-weather-block { display: flex; flex-direction: column; align-items: center; }
     .tl-weather { font-size: 17px; margin-bottom: 3px; line-height: 1; }
     .tl-temp { font-size: 9.5px; color: var(--ink-mute); margin-bottom: 7px; text-align: center; white-space: nowrap; }
+    .tl-temp.live { color: #2A7A4A; font-weight: 600; }
+    .tl-temp.loading { color: var(--ink-mute); opacity: 0.5; }
     .tl-label { font-size: 11.5px; color: var(--ink-soft); text-align: center; line-height: 1.45; font-weight: 500; white-space: nowrap; }
     .tl-sub { font-size: 10px; color: var(--ink-mute); text-align: center; line-height: 1.5; margin-top: 3px; white-space: nowrap; }
+
     @media (min-width: 641px) {
       .timeline-scroll-wrapper { overflow-x: visible; margin: 0; padding: 0; }
       .timeline { min-width: unset; }
@@ -77,7 +84,7 @@
       .tl-label, .tl-sub { white-space: normal; }
     }
 
-    /* ─── DAY CARD ─── */
+    /* DAY CARD */
     .guide-body { max-width: 780px; margin: 0 auto; padding: 52px 24px 40px; }
     .day-card { margin-bottom: 60px; display: grid; grid-template-columns: 80px 1fr; gap: 0 36px; scroll-margin-top: 40px; }
     .day-meta { text-align: right; padding-right: 36px; border-right: 1px solid var(--divider); padding-top: 4px; }
@@ -85,11 +92,12 @@
     .day-date { font-size: 10.5px; color: var(--ink-mute); letter-spacing: 0.14em; margin-top: 6px; white-space: nowrap; }
     .day-weather-badge { margin-top: 10px; display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
     .day-weather-icon { font-size: 20px; }
-    .day-temp { font-size: 10px; color: var(--ink-mute); white-space: nowrap; }
+    .day-temp-label { font-size: 10px; color: var(--ink-mute); white-space: nowrap; }
+    .day-temp-label.live { color: #2A7A4A; font-weight: 600; }
     .day-inner { padding-bottom: 8px; }
     .day-title { font-family: 'Noto Serif TC', serif; font-size: 1.05rem; font-weight: 400; letter-spacing: 0.07em; margin-bottom: 22px; padding-bottom: 14px; border-bottom: 1px solid var(--divider); }
 
-    /* ─── ITEMS ─── */
+    /* ITEMS */
     .item-row { display: flex; gap: 14px; margin-bottom: 15px; align-items: flex-start; }
     .item-icon { width: 30px; height: 30px; flex-shrink: 0; background: var(--paper-warm); border: 1px solid var(--divider); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-top: 1px; }
     .item-icon svg { width: 13px; height: 13px; stroke: var(--gold); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
@@ -100,7 +108,7 @@
     .item-desc a { color: var(--gold); text-decoration: none; border-bottom: 1px solid transparent; }
     .item-desc a:hover { border-color: var(--gold-light); }
 
-    /* ─── REST BLOCK ─── */
+    /* REST BLOCK */
     .rest-block { margin: 18px 0 4px; border: 1px solid var(--divider); border-radius: 4px; overflow: hidden; }
     .rest-block-header { background: var(--paper-warm); padding: 8px 16px; font-size: 11px; letter-spacing: 0.2em; color: var(--gold); font-family: 'Cormorant Garamond', serif; text-transform: uppercase; border-bottom: 1px solid var(--divider); }
     .rest-list { padding: 4px 0; }
@@ -110,11 +118,12 @@
     .tag-confirmed { background: #EAF0E8; color: #3B6324; border: 1px solid #b8d4a8; }
     .tag-paid      { background: #E8F0FF; color: #2A4A9A; border: 1px solid #b0c4f0; }
     .tag-option    { background: #F0EDE8; color: #7A6040; border: 1px solid #ddd0be; }
+    .tag-deposit   { background: #FFF3E0; color: #A05A00; border: 1px solid #f0c870; }
     .rest-name { font-size: 13.5px; font-weight: 500; color: var(--ink); flex: 1; min-width: 0; }
     .rest-name a { color: inherit; text-decoration: none; border-bottom: 1px solid rgba(184,147,90,0.35); }
     .rest-info { font-size: 12px; color: var(--ink-mute); white-space: nowrap; flex-shrink: 0; padding-left: 8px; }
 
-    /* ─── PHOTO ─── */
+    /* PHOTO */
     .day-photo { margin-top: 22px; height: 210px; border-radius: 3px; overflow: hidden; position: relative; background: var(--paper-warm); }
     .day-photo img { width: 100%; height: 100%; object-fit: cover; display: block; filter: saturate(0.88) brightness(0.95); transition: transform 0.6s ease, filter 0.4s; }
     .day-photo:hover img { transform: scale(1.04); filter: saturate(1) brightness(1); }
@@ -122,7 +131,7 @@
     .day-narrative { font-size: 13px; color: var(--ink-soft); margin-top: 18px; line-height: 1.9; padding: 14px 18px; background: var(--paper-warm); border-left: 2px solid var(--gold-light); border-radius: 0 2px 2px 0; }
     .note-block { margin-top: 14px; padding: 12px 16px; background: #F3F7FF; border-left: 2px solid #7A9FCC; border-radius: 0 2px 2px 0; font-size: 12.5px; color: #3A5577; line-height: 1.75; }
 
-    /* ─── BAR GUIDE ─── */
+    /* BAR GUIDE */
     .bar-guide { background: #1C1C1C; border-radius: 3px; padding: 40px 44px; margin-top: 64px; position: relative; overflow: hidden; }
     .bar-guide::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--kyoto-red), var(--gold)); }
     .bar-guide-label { font-family: 'Cormorant Garamond', serif; font-size: 11px; letter-spacing: 0.55em; color: var(--gold); text-transform: uppercase; margin-bottom: 10px; }
@@ -133,17 +142,22 @@
     .bar-name a { color: inherit; text-decoration: none; border-bottom: 1px solid rgba(184,147,90,0.4); }
     .bar-desc { font-size: 13px; color: rgba(255,255,255,0.48); line-height: 1.75; }
 
-    /* ─── SPOTS DIRECTORY (PAGE 2) ─── */
+    /* PAGE 2: SPOTS */
     .backup-category { margin-bottom: 30px; }
     .backup-category h3 { font-size: 14px; color: var(--gold); margin-bottom: 12px; letter-spacing: 0.1em; font-family: 'Noto Serif TC', serif; border-bottom: 1px solid var(--divider); padding-bottom: 6px; }
-    .backup-card { background: #fff; border: 1px solid var(--divider); border-radius: 6px; padding: 14px 16px; margin-bottom: 10px; display: flex; align-items: center; gap: 14px; transition: 0.2s; text-decoration: none; color: inherit; }
+    .backup-card { background: #fff; border: 1px solid var(--divider); border-radius: 6px; padding: 12px 16px; margin-bottom: 8px; display: flex; align-items: center; gap: 14px; transition: 0.2s; text-decoration: none; color: inherit; }
     .backup-card:active { background: var(--paper-warm); }
     .backup-emoji { font-size: 20px; flex-shrink: 0; width: 28px; text-align: center; }
-    .backup-info { flex: 1; }
-    .backup-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 2px; }
+    .backup-info { flex: 1; min-width: 0; }
+    .backup-name { font-size: 13.5px; font-weight: 500; color: var(--ink); margin-bottom: 2px; }
     .backup-desc { font-size: 12px; color: var(--ink-mute); }
+    .backup-badge { font-size: 10px; padding: 2px 7px; border-radius: 20px; white-space: nowrap; flex-shrink: 0; font-weight: 500; }
+    .bb-must   { background: #FFF0E8; color: #A0440A; border: 1px solid #f0c8a8; }
+    .bb-booked { background: #EAF0E8; color: #3B6324; border: 1px solid #b8d4a8; }
+    .bb-paid   { background: #E8F0FF; color: #2A4A9A; border: 1px solid #b0c4f0; }
+    .bb-extra  { background: #F0F0F8; color: #4A4A7A; border: 1px solid #c8c8e8; }
 
-    /* ─── JAPANESE PHRASE (PAGE 3) ─── */
+    /* PAGE 3: JAPANESE */
     .phrase-notice { margin-bottom: 20px; padding: 12px 16px; background: #F3F7FF; border-left: 2px solid #7A9FCC; border-radius: 0 4px 4px 0; font-size: 12.5px; color: #3A5577; line-height: 1.7; }
     .phrase-cat { margin-bottom: 24px; }
     .phrase-cat-header { font-family: 'Noto Serif TC', serif; font-size: 13px; font-weight: 600; color: var(--gold); letter-spacing: 0.15em; border-bottom: 1px solid var(--divider); padding-bottom: 8px; margin-bottom: 4px; }
@@ -152,16 +166,15 @@
     .phrase-text { flex: 1; min-width: 0; }
     .phrase-zh { font-size: 13px; color: var(--ink-mute); margin-bottom: 3px; }
     .phrase-ja { font-size: 15px; font-weight: 500; color: var(--ink); line-height: 1.4; }
-    .phrase-read { font-size: 11.5px; color: var(--ink-mute); margin-top: 3px; letter-spacing: 0.03em; }
-
+    .phrase-read { font-size: 11.5px; color: var(--ink-mute); margin-top: 3px; }
     .speak-btn { width: 40px; height: 40px; min-width: 40px; border-radius: 50%; border: 1.5px solid var(--divider); background: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; flex-shrink: 0; }
-    .speak-btn svg { width: 18px; height: 18px; stroke: var(--gold); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; transition: 0.2s; }
+    .speak-btn svg { width: 18px; height: 18px; stroke: var(--gold); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
     .speak-btn:active { background: var(--paper-warm); transform: scale(0.94); }
     .speak-btn.playing { background: var(--gold); border-color: var(--gold); }
     .speak-btn.playing svg { stroke: #fff; }
     .no-tts .speak-btn { display: none; }
 
-    /* ─── BOTTOM NAV ─── */
+    /* BOTTOM NAV */
     .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; height: var(--nav-h); padding-bottom: env(safe-area-inset-bottom); background: rgba(255,255,255,0.97); border-top: 1px solid rgba(0,0,0,0.07); display: flex; justify-content: space-around; align-items: stretch; z-index: 1000; box-shadow: 0 -4px 20px rgba(0,0,0,0.04); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
     .nav-btn { display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; height: 100%; color: #aaa; font-size: 10.5px; font-weight: 500; letter-spacing: 0.04em; gap: 5px; border: none; background: transparent; cursor: pointer; transition: color 0.2s; padding-bottom: 2px; }
     .nav-btn svg { width: 21px; height: 21px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.2s; }
@@ -169,7 +182,6 @@
     .nav-btn.active svg { transform: translateY(-2px); }
     .nav-btn:active { opacity: 0.7; }
 
-    /* ─── RESPONSIVE ─── */
     @media (max-width: 640px) {
       .day-card { grid-template-columns: 1fr; gap: 0; }
       .day-meta { text-align: left; border-right: none; border-bottom: 1px solid var(--divider); padding-right: 0; padding-bottom: 12px; margin-bottom: 20px; display: flex; align-items: baseline; gap: 14px; }
@@ -182,12 +194,13 @@
 </head>
 <body>
 
+<!-- ════════ PAGE 1: 每日行程 ════════ -->
 <section id="page-itinerary" class="page-section active">
 
   <header class="hero">
     <div class="hero-kana">Kansai Golden Week 2026</div>
     <h1>關西黃金週<br><span>京都深度五日</span></h1>
-    <div class="hero-sub">4 / 30 — 5 / 4 · Boutique & Slow Travel</div>
+    <div class="hero-sub">4 / 30 — 5 / 4 · Boutique &amp; Slow Travel</div>
     <div class="hero-ornament">
       <div class="ornament-line"></div><div class="ornament-dot"></div><div class="ornament-line r"></div>
     </div>
@@ -198,68 +211,104 @@
       <div class="section-label">Five-Day Overview</div>
       <div class="timeline-scroll-wrapper">
         <div class="timeline">
+
           <a href="#day-01" class="tl-day" onclick="scrollToDay(event,'day-01')">
             <div class="tl-num">01</div><div class="tl-date">4/30 四</div><div class="tl-dot"></div>
-            <div class="tl-weather">🌧️</div><div class="tl-temp">15–22°C</div>
-            <div class="tl-label">抵達京都</div><div class="tl-sub">KIX → 京都 / 藥妝</div>
+            <div class="tl-weather-block">
+              <div class="tl-weather" id="tl-icon-0">☁️</div>
+              <div class="tl-temp" id="tl-temp-0">13–20°C</div>
+            </div>
+            <div class="tl-label">抵達京都</div><div class="tl-sub">KIX 18:05 / 藥妝</div>
           </a>
+
           <a href="#day-02" class="tl-day" onclick="scrollToDay(event,'day-02')">
             <div class="tl-num">02</div><div class="tl-date">5/01 五</div><div class="tl-dot"></div>
-            <div class="tl-weather">🌧️</div><div class="tl-temp">14–20°C</div>
+            <div class="tl-weather-block">
+              <div class="tl-weather" id="tl-icon-1">☁️</div>
+              <div class="tl-temp" id="tl-temp-1">14–20°C</div>
+            </div>
             <div class="tl-label">神社・購物</div><div class="tl-sub">藍瓶 / 祇園燒肉✓</div>
           </a>
+
           <a href="#day-03" class="tl-day" onclick="scrollToDay(event,'day-03')">
             <div class="tl-num">03</div><div class="tl-date">5/02 六</div><div class="tl-dot"></div>
-            <div class="tl-weather">🌥️</div><div class="tl-temp">13–21°C</div>
+            <div class="tl-weather-block">
+              <div class="tl-weather" id="tl-icon-2">🌤️</div>
+              <div class="tl-temp" id="tl-temp-2">11–20°C</div>
+            </div>
             <div class="tl-label">宇治・伏見</div><div class="tl-sub">抹茶 / 茶道✓</div>
           </a>
+
           <a href="#day-04" class="tl-day" onclick="scrollToDay(event,'day-04')">
             <div class="tl-num">04</div><div class="tl-date">5/03 日</div><div class="tl-dot"></div>
-            <div class="tl-weather">🌤️</div><div class="tl-temp">12–20°C</div>
+            <div class="tl-weather-block">
+              <div class="tl-weather" id="tl-icon-3">⛅</div>
+              <div class="tl-temp" id="tl-temp-3">14–25°C</div>
+            </div>
             <div class="tl-label">海之京都</div><div class="tl-sub">天橋立 / 伊根</div>
           </a>
+
           <a href="#day-05" class="tl-day" onclick="scrollToDay(event,'day-05')">
             <div class="tl-num">05</div><div class="tl-date">5/04 一</div><div class="tl-dot"></div>
-            <div class="tl-weather">✈️</div><div class="tl-temp">返程日</div>
-            <div class="tl-label">京都→大阪</div><div class="tl-sub">13:10 起飛</div>
+            <div class="tl-weather-block">
+              <div class="tl-weather" id="tl-icon-4">🌦️</div>
+              <div class="tl-temp" id="tl-temp-4">16–26°C</div>
+            </div>
+            <div class="tl-label">京都→大阪</div><div class="tl-sub">CI157 13:10</div>
           </a>
+
         </div>
       </div>
+      <!-- 即時天氣說明 -->
+      <p id="weather-status" style="font-size:10.5px; color:var(--ink-mute); text-align:center; margin-top:18px; letter-spacing:0.05em;"></p>
     </div>
   </section>
 
   <main class="guide-body">
     <div class="section-label">Day by Day Itinerary</div>
 
+    <!-- ── DAY 01 ── -->
     <div class="day-card" id="day-01">
       <div class="day-meta">
         <span class="day-num">01</span><div class="day-date">4/30 THU</div>
-        <div class="day-weather-badge"><span class="day-weather-icon">🌧️</span><span class="day-temp">15–22°C</span></div>
+        <div class="day-weather-badge">
+          <span class="day-weather-icon" id="d1-icon">☁️</span>
+          <span class="day-temp-label" id="d1-temp">13–20°C</span>
+        </div>
       </div>
       <div class="day-inner">
         <div class="day-title">抵達京都・首夜微醺</div>
         <div class="item-row">
           <div class="item-icon"><svg viewBox="0 0 24 24"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4 20-7z"/></svg></div>
-          <div class="item-body"><div class="item-title">14:20 台灣出發 → 18:05 抵達 KIX</div><div class="item-desc">雨天入境記得備傘，入境大廳可購買 Haruka 套票。</div></div>
+          <div class="item-body">
+            <div class="item-title">12:20 到機場 · CI172 T2 出發</div>
+            <div class="item-desc">14:20 起飛 → 18:05 抵達關西機場 KIX。雨天記得備傘，入境後可購買 Haruka 套票。</div>
+          </div>
         </div>
         <div class="item-row">
           <div class="item-icon"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></div>
-          <div class="item-body"><div class="item-title">搭乘 JR Haruka 特急 → 京都</div><div class="item-desc">車程約 80 分鐘，約 20:30 抵達京都車站，辦理入住後輕裝出門。</div></div>
+          <div class="item-body">
+            <div class="item-title">搭乘 JR Haruka 特急 → 京都</div>
+            <div class="item-desc">車程約 80 分鐘，約 20:30 抵達京都車站，辦理入住後輕裝出門。</div>
+          </div>
         </div>
         <div class="item-row">
           <div class="item-icon"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></div>
-          <div class="item-body"><div class="item-title">藥妝採購</div><div class="item-desc">京都駅周邊松本清、Welcia，放好行李後先掃一輪再吃飯最有效率。</div></div>
+          <div class="item-body">
+            <div class="item-title">藥妝採購</div>
+            <div class="item-desc">八条口周邊松本清、Welcia，放行李後先掃一輪再吃飯最有效率。</div>
+          </div>
         </div>
         <div class="rest-block">
           <div class="rest-block-header">晚餐選項（擇一）</div>
           <div class="rest-list">
             <div class="rest-item"><span class="rest-tag tag-option">候選</span><span class="rest-name"><a href="https://www.google.com/maps/search/夢み家+大阪焼き+京都" target="_blank" rel="noopener">Yumemiya 夢み家</a>　大阪燒</span><span class="rest-info">〜 23:00</span></div>
-            <div class="rest-item"><span class="rest-tag tag-option">候選</span><span class="rest-name"><a href="https://maps.app.goo.gl/CfTbgsfxj7AJ3VR46" target="_blank" rel="noopener">炭火串焼つじや 八条口</a>　燒鳥</span><span class="rest-info">〜 23:00</span></div>
+            <div class="rest-item"><span class="rest-tag tag-option">候選</span><span class="rest-name"><a href="https://maps.app.goo.gl/CfTbgsfxj7AJ3VR46" target="_blank" rel="noopener">炭火串焼つじや 八条口店</a>　燒鳥</span><span class="rest-info">〜 23:00</span></div>
             <div class="rest-item"><span class="rest-tag tag-option">候選</span><span class="rest-name"><a href="https://www.google.com/maps/search/Yakitori+Tsujiya+京都" target="_blank" rel="noopener">Yakitori Tsujiya</a>　燒鳥（較遠）</span><span class="rest-info">〜 22:00</span></div>
             <div class="rest-item"><span class="rest-tag tag-option">輕鬆</span><span class="rest-name">烏冬麵　車站周邊深夜均可</span></div>
           </div>
         </div>
-        <div class="note-block">💡 雨天備折傘，八条口出口有便利商店可補傘。建議先放行李 → 逛藥妝 → 晚餐，行程不趕。</div>
+        <div class="note-block">✈️ 班機 CI172・T2 出發。入境記得開啟 Visit Japan Web 行動入境。八条口有便利商店可補傘。</div>
         <div class="day-photo">
           <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=900&auto=format&fit=crop&q=80" alt="京都夜景" onerror="this.src='https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=900&auto=format&fit=crop&q=80'">
           <div class="photo-caption">京都 · 入夜抵達</div>
@@ -267,22 +316,29 @@
       </div>
     </div>
 
+    <!-- ── DAY 02 ── -->
     <div class="day-card" id="day-02">
       <div class="day-meta">
         <span class="day-num">02</span><div class="day-date">5/01 FRI</div>
-        <div class="day-weather-badge"><span class="day-weather-icon">🌧️</span><span class="day-temp">14–20°C</span></div>
+        <div class="day-weather-badge">
+          <span class="day-weather-icon" id="d2-icon">☁️</span>
+          <span class="day-temp-label" id="d2-temp">14–20°C</span>
+        </div>
       </div>
       <div class="day-inner">
         <div class="day-title">神社散步・購物・祇園燒肉</div>
         <div class="item-row">
           <div class="item-icon"><svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></div>
-          <div class="item-body"><div class="item-title">早午餐：<a href="https://maps.app.goo.gl/kwD1GPB2iPsLpi2c9" target="_blank" rel="noopener">Blue Bottle Coffee 京都</a></div><div class="item-desc">09:00 開門，百年京町家改建，空間極美。喝完可步行至南禪寺或蹴上傾斜鐵道。</div></div>
+          <div class="item-body">
+            <div class="item-title">早午餐：<a href="https://maps.app.goo.gl/kwD1GPB2iPsLpi2c9" target="_blank" rel="noopener">Blue Bottle Coffee 京都</a></div>
+            <div class="item-desc">08:00 開門（18:00 止），百年京町家改建，空間極美。喝完可步行至南禪寺、蹴上傾斜鐵道，附近神社眾多可自由晃晃。</div>
+          </div>
         </div>
         <div class="item-row">
           <div class="item-icon"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
           <div class="item-body">
             <div class="item-title">午餐：<a href="https://www.google.com/maps/search/大力邸+京都+壽喜燒" target="_blank" rel="noopener">大力邸</a>　和牛壽喜燒</div>
-            <div class="item-desc">11:30 預約入座・已付款 ✓ 請準時抵達，勿遲到。</div>
+            <div class="item-desc">11:30 預約入座，請準時抵達勿遲到。</div>
           </div>
         </div>
         <div class="rest-block" style="margin-top:0; margin-bottom:16px;">
@@ -290,23 +346,29 @@
             <div class="rest-item" style="background:#FAFCFF;">
               <span class="rest-tag tag-paid">💳 已付款</span>
               <span class="rest-name" style="color:#2A4A9A; font-weight:600;">大力邸　和牛壽喜燒</span>
-              <span class="rest-info" style="color:#2A4A9A;">11:30 入座</span>
+              <span class="rest-info" style="color:#2A4A9A; display:block;">11:30 入座</span>
             </div>
           </div>
         </div>
         <div class="item-row">
           <div class="item-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/></svg></div>
-          <div class="item-body"><div class="item-title">13:30 <a href="https://maps.app.goo.gl/MxSmpmhL9z5ruarV6" target="_blank" rel="noopener">因幡堂（平等寺）</a></div><div class="item-desc">有可愛文鳥、貓咪、柴犬御守，療癒必訪。</div></div>
+          <div class="item-body">
+            <div class="item-title">13:30 <a href="https://maps.app.goo.gl/MxSmpmhL9z5ruarV6" target="_blank" rel="noopener">因幡堂（平等寺）</a></div>
+            <div class="item-desc">有可愛文鳥、貓咪、柴犬御守，療癒必訪。</div>
+          </div>
         </div>
         <div class="item-row">
           <div class="item-icon"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></div>
-          <div class="item-body"><div class="item-title">四條河原町 逛街</div><div class="item-desc"><a href="https://www.google.com/maps/search/Kyoto+BAL" target="_blank" rel="noopener">Kyoto BAL</a>、<a href="https://www.google.com/maps/search/藤井大丸+京都" target="_blank" rel="noopener">藤井大丸</a>，雨天室內購物最合適。</div></div>
+          <div class="item-body">
+            <div class="item-title">四條河原町 逛街</div>
+            <div class="item-desc"><a href="https://www.google.com/maps/search/Kyoto+BAL" target="_blank" rel="noopener">Kyoto BAL</a>、<a href="https://www.google.com/maps/search/藤井大丸+京都" target="_blank" rel="noopener">藤井大丸</a>，雨天室內購物最合適。</div>
+          </div>
         </div>
         <div class="rest-block">
-          <div class="rest-block-header">市區小店與景點散策</div>
+          <div class="rest-block-header">市區小店與景點</div>
           <div class="rest-list">
             <div class="rest-item"><span class="rest-tag tag-option">景點</span><span class="rest-name"><a href="https://maps.app.goo.gl/8RkfkSeL933YHtMX9" target="_blank" rel="noopener">御金神社</a></span><span class="rest-info">洗錢招財</span></div>
-            <div class="rest-item"><span class="rest-tag tag-option">選物</span><span class="rest-name"><a href="https://maps.app.goo.gl/QtG8enG3QCWmCCVf8" target="_blank" rel="noopener">D&DEPARTMENT KYOTO</a></span><span class="rest-info">強力推薦</span></div>
+            <div class="rest-item"><span class="rest-tag tag-option">選物</span><span class="rest-name"><a href="https://maps.app.goo.gl/QtG8enG3QCWmCCVf8" target="_blank" rel="noopener">D&amp;DEPARTMENT KYOTO</a></span><span class="rest-info">強力推薦</span></div>
             <div class="rest-item"><span class="rest-tag tag-option">香鋪</span><span class="rest-name"><a href="https://maps.app.goo.gl/fbg6mcCC6owbRi6eA" target="_blank" rel="noopener">Shoyeido 松榮堂</a></span><span class="rest-info">製香專門</span></div>
             <div class="rest-item"><span class="rest-tag tag-option">小店</span><span class="rest-name"><a href="https://maps.app.goo.gl/r8uHnMtZwj2dXFJz6" target="_blank" rel="noopener">creative OOO</a></span></div>
             <div class="rest-item"><span class="rest-tag tag-option">小店</span><span class="rest-name"><a href="https://maps.app.goo.gl/gPPRDXgYTGGWbLZJ6" target="_blank" rel="noopener">VOU/棒</a></span></div>
@@ -316,7 +378,11 @@
         <div class="rest-block">
           <div class="rest-block-header">晚餐</div>
           <div class="rest-list">
-            <div class="rest-item"><span class="rest-tag tag-confirmed">✓ 已訂位</span><span class="rest-name"><a href="https://www.google.com/maps/search/Gion+Yakiniku+Gyusho+Shin+京都" target="_blank" rel="noopener">Gion Yakiniku Gyusho Shin　祇園牛燒肉</a></span><span class="rest-info">18:00 入座</span></div>
+            <div class="rest-item">
+              <span class="rest-tag tag-deposit">💰 已付訂金</span>
+              <span class="rest-name"><a href="https://www.google.com/maps/search/Gion+Yakiniku+Gyusho+Shin+京都" target="_blank" rel="noopener">Gion Yakiniku Gyusho Shin　祇園牛燒肉</a></span>
+              <span class="rest-info">18:00 入座</span>
+            </div>
           </div>
         </div>
         <div class="day-photo">
@@ -326,107 +392,168 @@
       </div>
     </div>
 
+    <!-- ── DAY 03 ── -->
     <div class="day-card" id="day-03">
       <div class="day-meta">
         <span class="day-num">03</span><div class="day-date">5/02 SAT</div>
-        <div class="day-weather-badge"><span class="day-weather-icon">🌥️</span><span class="day-temp">13–21°C</span></div>
+        <div class="day-weather-badge">
+          <span class="day-weather-icon" id="d3-icon">🌤️</span>
+          <span class="day-temp-label" id="d3-temp">11–20°C</span>
+        </div>
       </div>
       <div class="day-inner">
-        <div class="day-title">宇治抹茶 × 伏見酒藏（or 鴨川）</div>
+        <div class="day-title">宇治抹茶 × 茶道 × 伏見（or 鴨川）</div>
         <div class="item-row">
           <div class="item-icon"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></div>
-          <div class="item-body"><div class="item-title">08:08 出發前往宇治</div><div class="item-desc">從京都駅搭 JR 奈良線約 17 分鐘，班次密集，輕鬆出發。</div></div>
+          <div class="item-body">
+            <div class="item-title">08:08 出發前往宇治</div>
+            <div class="item-desc">京都駅搭 JR 奈良線約 17 分鐘。往<strong>日幣 10 円上的平等院</strong>方向走，沿宇治川兩岸景色怡人。</div>
+          </div>
         </div>
         <div class="item-row">
           <div class="item-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
-          <div class="item-body"><div class="item-title">11:15 <a href="https://maps.app.goo.gl/6BssokL4e5xrXkx68" target="_blank" rel="noopener">對鳳庵</a>（✓ 已預約）</div><div class="item-desc">正統宇治茶道體驗，感受最道地的抹茶文化。</div></div>
-        </div>
-        <div class="item-row">
-          <div class="item-icon"><svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></div>
-          <div class="item-body"><div class="item-title">宇治散步・抹茶採購</div><div class="item-desc"><a href="https://www.google.com/maps/search/中村藤吉本店+宇治" target="_blank" rel="noopener">中村藤吉本店</a>、平等院鳳凰堂、宇治上神社，沿宇治川步行舒適。</div></div>
+          <div class="item-body">
+            <div class="item-title">11:15 <a href="https://maps.app.goo.gl/6BssokL4e5xrXkx68" target="_blank" rel="noopener">對鳳庵</a>（✓ 已預約・已付款）</div>
+            <div class="item-desc">正統宇治茶道體驗，感受最道地的抹茶文化。體驗約 30–45 分鐘，請準時到場。</div>
+          </div>
         </div>
         <div class="rest-block">
-          <div class="rest-block-header">宇治周邊逛買清單</div>
+          <div class="rest-block-header">☕ 宇治咖啡廳 &amp; 甜點選項</div>
           <div class="rest-list">
-            <div class="rest-item"><span class="rest-tag tag-option">伴手禮</span><span class="rest-name"><a href="https://maps.app.goo.gl/LHMFEQDVANpghCYA8" target="_blank" rel="noopener">Chez Hagata</a></span><span class="rest-info">抹茶醬麋蛋糕</span></div>
+            <div class="rest-item"><span class="rest-tag tag-option">河景</span><span class="rest-name"><a href="https://www.google.com/maps/search/通圓本店+宇治" target="_blank" rel="noopener">通圓本店</a>　抹茶甜點</span><span class="rest-info">宇治川河景</span></div>
+            <div class="rest-item"><span class="rest-tag tag-option">伴手禮</span><span class="rest-name"><a href="https://maps.app.goo.gl/LHMFEQDVANpghCYA8" target="_blank" rel="noopener">Chez Hagata</a>　抹茶醬麋蛋糕</span><span class="rest-info">必買</span></div>
+            <div class="rest-item"><span class="rest-tag tag-option">反方向</span><span class="rest-name"><a href="https://www.google.com/maps/search/辻利兵衛本店+宇治" target="_blank" rel="noopener">辻利兵衛本店</a>　茶問屋</span><span class="rest-info">老舖茶葉</span></div>
+            <div class="rest-item"><span class="rest-tag tag-option">名店</span><span class="rest-name"><a href="https://www.google.com/maps/search/中村藤吉本店+宇治" target="_blank" rel="noopener">中村藤吉本店</a></span><span class="rest-info">人氣高早去</span></div>
+          </div>
+        </div>
+        <div class="rest-block">
+          <div class="rest-block-header">🛍️ 宇治採購清單</div>
+          <div class="rest-list">
             <div class="rest-item"><span class="rest-tag tag-option">名店</span><span class="rest-name"><a href="https://maps.app.goo.gl/7WnEXfacvAesoaw69" target="_blank" rel="noopener">堀井七茗園</a></span></div>
-            <div class="rest-item"><span class="rest-tag tag-option">超市</span><span class="rest-name"><a href="https://maps.app.goo.gl/uENTe3VvgRGsPzmH7" target="_blank" rel="noopener">Appro 食品館 宇治店</a></span><span class="rest-info">抹茶採購</span></div>
-            <div class="rest-item"><span class="rest-tag tag-option">老店</span><span class="rest-name"><a href="https://maps.app.goo.gl/r4r7n2LYTyBmHxqg7" target="_blank" rel="noopener">Jinjiro Tea Shop</a></span><span class="rest-info">在地老舖</span></div>
+            <div class="rest-item"><span class="rest-tag tag-option">超市</span><span class="rest-name"><a href="https://maps.app.goo.gl/uENTe3VvgRGsPzmH7" target="_blank" rel="noopener">Appro 食品館 宇治店</a></span><span class="rest-info">抹茶大採購</span></div>
+            <div class="rest-item"><span class="rest-tag tag-option">老店</span><span class="rest-name"><a href="https://maps.app.goo.gl/r4r7n2LYTyBmHxqg7" target="_blank" rel="noopener">Jinjiro Tea Shop</a></span></div>
           </div>
         </div>
         <div class="item-row">
           <div class="item-icon"><svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></div>
-          <div class="item-body"><div class="item-title">下午：視體力選擇</div><div class="item-desc"><b>精力充沛</b> → <a href="https://www.google.com/maps/search/月桂冠大倉記念館+伏見" target="_blank" rel="noopener">伏見酒藏</a>，清酒試飲＋十石舟。<br><b>有點廢</b> → 留宇治，傍晚回<a href="https://www.google.com/maps/search/鴨川+京都" target="_blank" rel="noopener">鴨川</a>散步。</div></div>
+          <div class="item-body">
+            <div class="item-title">下午：視體力選擇</div>
+            <div class="item-desc">
+              <b>精力充沛</b> → <a href="https://www.google.com/maps/search/月桂冠大倉記念館+伏見" target="_blank" rel="noopener">伏見酒藏</a>，清酒試飲＋十石舟遊覧。<br>
+              <b>有點廢</b> → 留宇治，傍晚回<a href="https://www.google.com/maps/search/鴨川+京都" target="_blank" rel="noopener">鴨川</a>散步。
+            </div>
+          </div>
         </div>
-        <div class="note-block">🍶 宇治 ←→ 伏見搭近鐵約 15 分鐘。伏見：月桂冠大倉紀念館清酒試飲＋十石舟遊覧水路。</div>
+        <div class="rest-block">
+          <div class="rest-block-header">晚餐</div>
+          <div class="rest-list">
+            <div class="rest-item">
+              <span class="rest-tag tag-option">候選</span>
+              <span class="rest-name"><a href="https://www.google.com/maps/search/名代とんかつかつくら+四条寺町" target="_blank" rel="noopener">名代とんかつ かつくら 四条寺町店</a>　炸豬排</span>
+              <span class="rest-info">〜 21:00</span>
+            </div>
+          </div>
+        </div>
+        <div class="note-block">🍶 宇治 ←→ 伏見搭近鐵約 15 分鐘。通圓本店千年老舖，河景座位極美，喝一杯抹茶悠哉發呆超適合。</div>
         <div class="day-photo">
           <img src="https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=900&auto=format&fit=crop&q=80" alt="宇治" onerror="this.src='https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=900&auto=format&fit=crop&q=80'">
           <div class="photo-caption">宇治 · 抹茶の里</div>
         </div>
-        <div class="day-narrative">宇治空氣中飄著清新茶香，除了預約好的對鳳庵茶道，今天把滿滿的抹茶伴手禮買齊吧。若體力允許下午轉伏見，古老酒藏石牆巷弄的氛圍截然不同。兩種節奏任君選擇。</div>
+        <div class="day-narrative">宇治沿著宇治川往平等院走，左手邊就是 10 圓硬幣上的那棟建築，實際看到的那刻還是會驚嘆。對鳳庵茶道後再把伴手禮一次買齊，行程充實又不趕。若體力允許下午轉伏見，古老酒藏石牆巷弄的氛圍截然不同。</div>
       </div>
     </div>
 
+    <!-- ── DAY 04 ── -->
     <div class="day-card" id="day-04">
       <div class="day-meta">
         <span class="day-num">04</span><div class="day-date">5/03 SUN</div>
-        <div class="day-weather-badge"><span class="day-weather-icon">🌤️</span><span class="day-temp">12–20°C</span></div>
+        <div class="day-weather-badge">
+          <span class="day-weather-icon" id="d4-icon">⛅</span>
+          <span class="day-temp-label" id="d4-temp">14–25°C</span>
+        </div>
       </div>
       <div class="day-inner">
         <div class="day-title">海之京都一日遊 · 天橋立 × 伊根</div>
         <div class="item-row">
           <div class="item-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
-          <div class="item-body"><div class="item-title">08:00 集合出發（KKday 一日遊）</div><div class="item-desc">乘遊覧船餵海鷗，近距離欣賞伊根舟屋群，這天天氣最好，盡情享受。</div></div>
+          <div class="item-body">
+            <div class="item-title">08:00 京都車站集合出發（KKday 一日遊）</div>
+            <div class="item-desc">乘遊覧船餵海鷗，近距離欣賞伊根舟屋群，今天多雲有風，記得帶外套。</div>
+          </div>
         </div>
         <div class="item-row">
           <div class="item-icon"><svg viewBox="0 0 24 24"><path d="M3 17l3-3 4 4 4-8 4 4"/><path d="M21 21H3"/></svg></div>
-          <div class="item-body"><div class="item-title">天橋立 · 伊根舟屋</div><div class="item-desc">登上傘松公園展望台倒看天橋立，松林騰空於海上（日本三景之一）。伊根舟屋依水而建，靜謐迷人。</div></div>
+          <div class="item-body">
+            <div class="item-title">天橋立 · 伊根舟屋</div>
+            <div class="item-desc">登上傘松公園展望台，倒看天橋立，松林騰空於海上（日本三景之一）。伊根舟屋依水而建，靜謐迷人。</div>
+          </div>
         </div>
         <div class="item-row">
           <div class="item-icon"><svg viewBox="0 0 24 24"><path d="M22 17H2a3 3 0 0 0 3-3V9a3 3 0 0 0-3-3"/><path d="M22 17a3 3 0 0 1-3 3H5"/><path d="M22 17V9a3 3 0 0 0-3-3H5"/><path d="M2 6v8"/></svg></div>
-          <div class="item-body"><div class="item-title">17:30 返回京都</div><div class="item-desc">回程車上可小睡，抵達後輕鬆覓食。</div></div>
+          <div class="item-body">
+            <div class="item-title">17:30 返回京都</div>
+            <div class="item-desc">回程車上可小睡，抵達後輕鬆覓食。</div>
+          </div>
         </div>
         <div class="rest-block">
           <div class="rest-block-header">午餐（行程中）・晚餐選項</div>
           <div class="rest-list">
-            <div class="rest-item"><span class="rest-tag tag-option">午餐</span><span class="rest-name">天橋立・伊根當地海鮮定食</span><span class="rest-info">在地食堂</span></div>
+            <div class="rest-item"><span class="rest-tag tag-option">午餐</span><span class="rest-name">伊根・天橋立當地海鮮定食 or 蕎麥麵</span><span class="rest-info">在地食堂</span></div>
             <div class="rest-item"><span class="rest-tag tag-option">晚餐</span><span class="rest-name"><a href="https://www.google.com/maps/search/京都勝牛+八条口" target="_blank" rel="noopener">京都勝牛 八條口店</a>　炸牛排</span><span class="rest-info">車站正對面</span></div>
-            <div class="rest-item"><span class="rest-tag tag-option">輕鬆</span><span class="rest-name">疲憊時：拉麵 or 烏冬</span></div>
+            <div class="rest-item"><span class="rest-tag tag-option">輕鬆</span><span class="rest-name">疲憊時：拉麵 or 烏冬　車站周邊均可</span></div>
           </div>
         </div>
         <div class="day-photo">
           <img src="https://images.unsplash.com/photo-1542640244-7e672d6cef4e?w=900&auto=format&fit=crop&q=80" alt="天橋立" onerror="this.src='https://images.unsplash.com/photo-1480796927426-f609979314bd?w=900&auto=format&fit=crop&q=80'">
           <div class="photo-caption">天橋立 · 日本三景之一</div>
         </div>
-        <div class="day-narrative">天橋立如翠綠松林橫跨海灣，在觀景台倒著看，松林化為騰空之橋，絕妙難忘。伊根的舟屋寧靜到讓人不想離開。這天的天氣最好，好好珍惜。</div>
+        <div class="day-narrative">天橋立如翠綠松林橫跨海灣，在觀景台倒著看，松林化為騰空之橋，絕妙難忘。伊根的舟屋寧靜到讓人不想離開。今日多雲有風，記得帶上輕薄外套。</div>
       </div>
     </div>
 
+    <!-- ── DAY 05 ── -->
     <div class="day-card" id="day-05">
       <div class="day-meta">
         <span class="day-num">05</span><div class="day-date">5/04 MON</div>
-        <div class="day-weather-badge"><span class="day-weather-icon">✈️</span><span class="day-temp">返程日</span></div>
+        <div class="day-weather-badge">
+          <span class="day-weather-icon" id="d5-icon">🌦️</span>
+          <span class="day-temp-label" id="d5-temp">16–26°C</span>
+        </div>
       </div>
       <div class="day-inner">
         <div class="day-title">京都 → 大阪 → 返台</div>
         <div class="rest-block" style="margin-top:0; margin-bottom:20px;">
-          <div class="rest-block-header">早起喝杯咖啡再走</div>
+          <div class="rest-block-header">早起喝杯咖啡再走（08:00 前出門）</div>
           <div class="rest-list">
-            <div class="rest-item"><span class="rest-tag tag-option">07:45 開</span><span class="rest-name"><a href="https://www.google.com/maps/search/?api=1&query=Minami+Kyoto+cafe" target="_blank" rel="noopener">Minami</a></span><span class="rest-info">步行 7 分</span></div>
-            <div class="rest-item"><span class="rest-tag tag-option">08:00 開</span><span class="rest-name"><a href="https://www.google.com/maps/search/?api=1&query=tsumugi+cafe+Kyoto" target="_blank" rel="noopener">tsumugi cafe</a></span><span class="rest-info">步行 10 分</span></div>
+            <div class="rest-item"><span class="rest-tag tag-option">07:45 開</span><span class="rest-name"><a href="https://www.google.com/maps/search/Minami+cafe+京都" target="_blank" rel="noopener">Minami</a></span><span class="rest-info">步行 7 分</span></div>
+            <div class="rest-item"><span class="rest-tag tag-option">08:00 開</span><span class="rest-name"><a href="https://www.google.com/maps/search/tsumugi+cafe+京都" target="_blank" rel="noopener">tsumugi cafe</a></span><span class="rest-info">步行 10 分</span></div>
+          </div>
+        </div>
+        <div class="item-row">
+          <div class="item-icon"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></div>
+          <div class="item-body">
+            <div class="item-title">09:30 左右搭 JR → 11:00 抵達 KIX</div>
+            <div class="item-desc">Haruka 特急約 80 分，黃金週安檢人潮多，至少提前 2 小時抵達機場。</div>
           </div>
         </div>
         <div class="item-row">
           <div class="item-icon"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></div>
-          <div class="item-body"><div class="item-title">早晨：最終採買</div><div class="item-desc">京都駅伊勢丹地下街，或大阪心齋橋短暫停留，留足時間。</div></div>
+          <div class="item-body">
+            <div class="item-title">機場最終採買</div>
+            <div class="item-desc">KIX 免稅區、伊勢丹地下街（若時間充裕可提前到京都駅掃），帶上一切戰利品。</div>
+          </div>
         </div>
         <div class="item-row">
           <div class="item-icon"><svg viewBox="0 0 24 24"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4 20-7z"/></svg></div>
-          <div class="item-body"><div class="item-title">13:10 班機起飛 → 15:05 抵台</div><div class="item-desc">帶上滿滿回憶與戰利品，感謝京都五日，下次再見。</div></div>
+          <div class="item-body">
+            <div class="item-title">CI157 T1 · 13:10 起飛 → 15:05 抵台</div>
+            <div class="item-desc">班機 CI157，從第一航廈出發，帶上滿滿回憶，感謝京都五日，下次再見。</div>
+          </div>
         </div>
+        <div class="note-block">✈️ 班機 CI157・T1。注意是第一航廈，和來程 T2 不同，請確認登機門。</div>
         <div class="day-photo">
           <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=900&auto=format&fit=crop&q=80" alt="機場" onerror="this.src='https://images.unsplash.com/photo-1483450388369-9ed95738483c?w=900&auto=format&fit=crop&q=80'">
-          <div class="photo-caption">關西機場 KIX · 13:10 起飛</div>
+          <div class="photo-caption">關西機場 KIX · CI157 13:10 起飛</div>
         </div>
       </div>
     </div>
@@ -434,111 +561,164 @@
     <div class="bar-guide">
       <div class="bar-guide-label">After Hours</div>
       <h3>深夜酒館指南</h3>
-      <div class="bar-item"><div class="bar-name"><a href="https://www.google.com/maps/search/Sake+Bar+Yoramu+京都" target="_blank" rel="noopener">Sake Bar Yoramu</a></div><div class="bar-desc">以色列老闆精選高品質清酒，不提供調酒，一場跨越國界的清酒深度旅程。Day 1 或 Day 2 晚餐後適合造訪。</div></div>
+      <div class="bar-item"><div class="bar-name"><a href="https://www.google.com/maps/search/Sake+Bar+Yoramu+京都" target="_blank" rel="noopener">Sake Bar Yoramu</a></div><div class="bar-desc">以色列老闆精選高品質清酒，不提供調酒，一場跨越國界的清酒深度旅程。Day 1 或 Day 2 晚餐後最適合。</div></div>
       <div class="bar-item"><div class="bar-name"><a href="https://www.google.com/maps/search/Kyoto+Beer+Lab" target="_blank" rel="noopener">Kyoto Beer Lab</a></div><div class="bar-desc">氣氛放鬆的在地精釀吧，以抹茶、焙茶等京都特色原料釀造，Day 3 宇治回來後最適合。</div></div>
     </div>
   </main>
 </section>
 
 
+<!-- ════════ PAGE 2: 景點 & 餐廳總表 ════════ -->
 <section id="page-spots" class="page-section">
   <div class="page-header">
-    <h2 class="page-title">景點 & 餐廳總表</h2>
-    <div class="page-subtitle">All Locations & Backups</div>
+    <h2 class="page-title">景點 &amp; 餐廳總表</h2>
+    <div class="page-subtitle">All Locations · 點擊開啟 Google Maps</div>
   </div>
   <div class="page-content">
 
-    <div class="note-block" style="margin-bottom: 24px; margin-top: 0;">
-      💡 此頁面彙整了行程中提到的所有地點與備用名單，點擊卡片即可開啟 Google Maps 導航。
+    <div class="note-block" style="margin-bottom:24px; margin-top:0;">
+      💡 彙整行程所有地點，並額外補充推薦景點。標有 <strong>＋推薦</strong> 的是行程以外值得加入的選項。
     </div>
 
+    <!-- 餐廳 -->
     <div class="backup-category">
-      <h3>🍽️ 美食、餐廳與咖啡廳</h3>
+      <h3>🍽️ 餐廳 &amp; 咖啡廳</h3>
+
       <a href="https://www.google.com/maps/search/大力邸+京都+壽喜燒" target="_blank" rel="noopener" class="backup-card">
-        <div class="backup-emoji">🥩</div><div class="backup-info"><div class="backup-name">大力邸</div><div class="backup-desc">和牛壽喜燒 (5/1 午餐，已付款)</div></div>
+        <div class="backup-emoji">🥩</div><div class="backup-info"><div class="backup-name">大力邸　和牛壽喜燒</div><div class="backup-desc">5/1 午餐 · 11:30 入座</div></div><span class="backup-badge bb-paid">💳 已付款</span>
       </a>
       <a href="https://www.google.com/maps/search/Gion+Yakiniku+Gyusho+Shin+京都" target="_blank" rel="noopener" class="backup-card">
-        <div class="backup-emoji">🔥</div><div class="backup-info"><div class="backup-name">Gion Yakiniku Gyusho Shin</div><div class="backup-desc">祇園牛燒肉 (5/1 晚餐，已訂位)</div></div>
+        <div class="backup-emoji">🔥</div><div class="backup-info"><div class="backup-name">Gion Yakiniku Gyusho Shin</div><div class="backup-desc">5/1 晚餐 · 18:00 入座 · 已付訂金</div></div><span class="backup-badge bb-booked">✓ 已訂位</span>
+      </a>
+      <a href="https://www.google.com/maps/search/名代とんかつかつくら+四条寺町" target="_blank" rel="noopener" class="backup-card">
+        <div class="backup-emoji">🐷</div><div class="backup-info"><div class="backup-name">名代とんかつ かつくら 四条寺町</div><div class="backup-desc">炸豬排名店 · 5/2 晚餐候選 · ～21:00</div></div><span class="backup-badge bb-must">候選</span>
       </a>
       <a href="https://www.google.com/maps/search/夢み家+大阪焼き+京都" target="_blank" rel="noopener" class="backup-card">
-        <div class="backup-emoji">🥢</div><div class="backup-info"><div class="backup-name">Yumemiya 夢み家</div><div class="backup-desc">大阪燒 (Day 1 候選)</div></div>
+        <div class="backup-emoji">🥢</div><div class="backup-info"><div class="backup-name">Yumemiya 夢み家</div><div class="backup-desc">大阪燒 · Day 1 候選 · ～23:00</div></div>
       </a>
       <a href="https://maps.app.goo.gl/CfTbgsfxj7AJ3VR46" target="_blank" rel="noopener" class="backup-card">
-        <div class="backup-emoji">🍢</div><div class="backup-info"><div class="backup-name">炭火串焼つじや 八条口店</div><div class="backup-desc">燒鳥 (Day 1 候選)</div></div>
+        <div class="backup-emoji">🍢</div><div class="backup-info"><div class="backup-name">炭火串焼つじや 八条口店</div><div class="backup-desc">燒鳥 · Day 1 候選 · ～23:00</div></div>
       </a>
       <a href="https://www.google.com/maps/search/Yakitori+Tsujiya+京都" target="_blank" rel="noopener" class="backup-card">
-        <div class="backup-emoji">🍢</div><div class="backup-info"><div class="backup-name">Yakitori Tsujiya</div><div class="backup-desc">燒鳥 (Day 1 候選，稍遠)</div></div>
+        <div class="backup-emoji">🍢</div><div class="backup-info"><div class="backup-name">Yakitori Tsujiya</div><div class="backup-desc">燒鳥 · Day 1 候選（稍遠）· ～22:00</div></div>
       </a>
       <a href="https://www.google.com/maps/search/京都勝牛+八条口" target="_blank" rel="noopener" class="backup-card">
-        <div class="backup-emoji">🥩</div><div class="backup-info"><div class="backup-name">京都勝牛 八條口店</div><div class="backup-desc">炸牛排 (Day 4 晚餐候選)</div></div>
+        <div class="backup-emoji">🥩</div><div class="backup-info"><div class="backup-name">京都勝牛 八條口店</div><div class="backup-desc">炸牛排 · Day 4 晚餐候選 · 車站正對面</div></div>
       </a>
       <a href="https://maps.app.goo.gl/kwD1GPB2iPsLpi2c9" target="_blank" rel="noopener" class="backup-card">
-        <div class="backup-emoji">☕</div><div class="backup-info"><div class="backup-name">Blue Bottle Coffee 京都</div><div class="backup-desc">京町家絕美空間 (5/1 早午餐)</div></div>
+        <div class="backup-emoji">☕</div><div class="backup-info"><div class="backup-name">Blue Bottle Coffee 京都</div><div class="backup-desc">5/1 早午餐 · 08:00–18:00 · 京町家空間</div></div><span class="backup-badge bb-must">必去</span>
       </a>
-      <a href="https://www.google.com/maps/search/?api=1&query=Minami+Kyoto+cafe" target="_blank" rel="noopener" class="backup-card">
-        <div class="backup-emoji">☕</div><div class="backup-info"><div class="backup-name">Minami</div><div class="backup-desc">07:45 開 (5/4 早餐候選)</div></div>
+      <a href="https://www.google.com/maps/search/通圓本店+宇治" target="_blank" rel="noopener" class="backup-card">
+        <div class="backup-emoji">🍵</div><div class="backup-info"><div class="backup-name">通圓本店（宇治）</div><div class="backup-desc">千年老舖 · 宇治川河景座位</div></div><span class="backup-badge bb-must">必去</span>
       </a>
-      <a href="https://www.google.com/maps/search/?api=1&query=tsumugi+cafe+Kyoto" target="_blank" rel="noopener" class="backup-card">
-        <div class="backup-emoji">☕</div><div class="backup-info"><div class="backup-name">tsumugi cafe</div><div class="backup-desc">08:00 開 (5/4 早餐候選)</div></div>
+      <a href="https://www.google.com/maps/search/辻利兵衛本店+宇治" target="_blank" rel="noopener" class="backup-card">
+        <div class="backup-emoji">🍵</div><div class="backup-info"><div class="backup-name">辻利兵衛本店（宇治）</div><div class="backup-desc">茶問屋老舖 · 車站反方向</div></div>
+      </a>
+      <a href="https://www.google.com/maps/search/中村藤吉本店+宇治" target="_blank" rel="noopener" class="backup-card">
+        <div class="backup-emoji">🍃</div><div class="backup-info"><div class="backup-name">中村藤吉本店（宇治）</div><div class="backup-desc">頂級抹茶甜點 · 人氣極高</div></div><span class="backup-badge bb-must">必去</span>
+      </a>
+      <a href="https://www.google.com/maps/search/Minami+cafe+京都" target="_blank" rel="noopener" class="backup-card">
+        <div class="backup-emoji">☕</div><div class="backup-info"><div class="backup-name">Minami</div><div class="backup-desc">5/4 早餐候選 · 07:45 開 · 步行 7 分</div></div>
+      </a>
+      <a href="https://www.google.com/maps/search/tsumugi+cafe+京都" target="_blank" rel="noopener" class="backup-card">
+        <div class="backup-emoji">☕</div><div class="backup-info"><div class="backup-name">tsumugi cafe</div><div class="backup-desc">5/4 早餐候選 · 08:00 開 · 步行 10 分</div></div>
       </a>
       <a href="https://www.google.com/maps/search/Sake+Bar+Yoramu+京都" target="_blank" rel="noopener" class="backup-card">
-        <div class="backup-emoji">🍶</div><div class="backup-info"><div class="backup-name">Sake Bar Yoramu</div><div class="backup-desc">深夜酒吧 (高品味清酒)</div></div>
+        <div class="backup-emoji">🍶</div><div class="backup-info"><div class="backup-name">Sake Bar Yoramu</div><div class="backup-desc">深夜清酒吧 · 以色列老闆精選</div></div>
       </a>
       <a href="https://www.google.com/maps/search/Kyoto+Beer+Lab" target="_blank" rel="noopener" class="backup-card">
-        <div class="backup-emoji">🍻</div><div class="backup-info"><div class="backup-name">Kyoto Beer Lab</div><div class="backup-desc">深夜酒吧 (茶香精釀啤酒)</div></div>
+        <div class="backup-emoji">🍺</div><div class="backup-info"><div class="backup-name">Kyoto Beer Lab</div><div class="backup-desc">深夜精釀啤酒 · 抹茶焙茶風味</div></div>
+      </a>
+      <!-- 額外推薦餐廳 -->
+      <a href="https://www.google.com/maps/search/ますたに+拉麵+京都" target="_blank" rel="noopener" class="backup-card">
+        <div class="backup-emoji">🍜</div><div class="backup-info"><div class="backup-name">ますたに　京都拉麵</div><div class="backup-desc">京都雞骨背脂拉麵代表 · 夜間亦開</div></div><span class="backup-badge bb-extra">＋推薦</span>
+      </a>
+      <a href="https://www.google.com/maps/search/錦市場+京都" target="_blank" rel="noopener" class="backup-card">
+        <div class="backup-emoji">🏮</div><div class="backup-info"><div class="backup-name">錦市場</div><div class="backup-desc">京都廚房 · 醃漬物、串燒、豆腐小食邊走邊吃</div></div><span class="backup-badge bb-extra">＋推薦</span>
+      </a>
+      <a href="https://www.google.com/maps/search/丸太町+いづ松+京都おはぎ" target="_blank" rel="noopener" class="backup-card">
+        <div class="backup-emoji">🍡</div><div class="backup-info"><div class="backup-name">いづ松　京都おはぎ</div><div class="backup-desc">在地老舖牡丹餅・黑芝麻 / 黃豆粉口味</div></div><span class="backup-badge bb-extra">＋推薦</span>
       </a>
     </div>
 
+    <!-- 景點體驗 -->
     <div class="backup-category">
-      <h3>⛩️ 景點與體驗</h3>
+      <h3>⛩️ 景點 &amp; 體驗</h3>
+
       <a href="https://maps.app.goo.gl/6BssokL4e5xrXkx68" target="_blank" rel="noopener" class="backup-card">
-        <div class="backup-emoji">🍵</div><div class="backup-info"><div class="backup-name">對鳳庵</div><div class="backup-desc">正統抹茶茶道 (5/2 體驗，已預約)</div></div>
+        <div class="backup-emoji">🍵</div><div class="backup-info"><div class="backup-name">對鳳庵　茶道體驗</div><div class="backup-desc">5/2 · 11:15 · 正統宇治抹茶茶道</div></div><span class="backup-badge bb-paid">💳 已付款</span>
       </a>
       <a href="https://maps.app.goo.gl/MxSmpmhL9z5ruarV6" target="_blank" rel="noopener" class="backup-card">
-        <div class="backup-emoji">🐕</div><div class="backup-info"><div class="backup-name">因幡堂（平等寺）</div><div class="backup-desc">療癒系文鳥、柴犬御守</div></div>
+        <div class="backup-emoji">🐕</div><div class="backup-info"><div class="backup-name">因幡堂（平等寺）</div><div class="backup-desc">療癒文鳥・柴犬・貓咪御守</div></div><span class="backup-badge bb-must">必去</span>
       </a>
       <a href="https://maps.app.goo.gl/8RkfkSeL933YHtMX9" target="_blank" rel="noopener" class="backup-card">
         <div class="backup-emoji">💰</div><div class="backup-info"><div class="backup-name">御金神社</div><div class="backup-desc">洗錢招財必訪</div></div>
       </a>
       <a href="https://www.google.com/maps/search/平等院鳳凰堂" target="_blank" rel="noopener" class="backup-card">
-        <div class="backup-emoji">🏯</div><div class="backup-info"><div class="backup-name">平等院鳳凰堂</div><div class="backup-desc">宇治世界遺產、10圓硬幣景觀</div></div>
+        <div class="backup-emoji">🏯</div><div class="backup-info"><div class="backup-name">平等院鳳凰堂（宇治）</div><div class="backup-desc">世界遺產 · 10 圓硬幣的那棟</div></div><span class="backup-badge bb-must">必去</span>
       </a>
       <a href="https://www.google.com/maps/search/宇治上神社" target="_blank" rel="noopener" class="backup-card">
-        <div class="backup-emoji">⛩️</div><div class="backup-info"><div class="backup-name">宇治上神社</div><div class="backup-desc">日本現存最古老神社建築</div></div>
+        <div class="backup-emoji">⛩️</div><div class="backup-info"><div class="backup-name">宇治上神社</div><div class="backup-desc">日本現存最古老神社建築 · 世界遺產</div></div>
       </a>
       <a href="https://www.google.com/maps/search/月桂冠大倉記念館+伏見" target="_blank" rel="noopener" class="backup-card">
-        <div class="backup-emoji">🍶</div><div class="backup-info"><div class="backup-name">月桂冠大倉紀念館</div><div class="backup-desc">伏見清酒試飲、酒藏展示</div></div>
+        <div class="backup-emoji">🍶</div><div class="backup-info"><div class="backup-name">月桂冠大倉紀念館（伏見）</div><div class="backup-desc">清酒試飲 · 酒藏歷史展示</div></div>
       </a>
       <a href="https://www.google.com/maps/search/十石舟+伏見" target="_blank" rel="noopener" class="backup-card">
-        <div class="backup-emoji">🚣</div><div class="backup-info"><div class="backup-name">十石舟遊覧</div><div class="backup-desc">伏見酒藏水路遊船</div></div>
-      </a>
-      <a href="https://www.google.com/maps/search/鴨川+京都" target="_blank" rel="noopener" class="backup-card">
-        <div class="backup-emoji">🌅</div><div class="backup-info"><div class="backup-name">鴨川</div><div class="backup-desc">黃昏散步好去處</div></div>
+        <div class="backup-emoji">🚣</div><div class="backup-info"><div class="backup-name">十石舟遊覧（伏見）</div><div class="backup-desc">酒藏水路遊船 · 春季限定</div></div>
       </a>
       <a href="https://www.google.com/maps/search/天橋立" target="_blank" rel="noopener" class="backup-card">
-        <div class="backup-emoji">🌲</div><div class="backup-info"><div class="backup-name">天橋立 (傘松公園)</div><div class="backup-desc">日本三景、倒看飛龍觀</div></div>
+        <div class="backup-emoji">🌲</div><div class="backup-info"><div class="backup-name">天橋立</div><div class="backup-desc">日本三景 · 傘松公園倒看飛龍觀</div></div><span class="backup-badge bb-must">必去</span>
       </a>
       <a href="https://www.google.com/maps/search/伊根舟屋" target="_blank" rel="noopener" class="backup-card">
-        <div class="backup-emoji">🏠</div><div class="backup-info"><div class="backup-name">伊根舟屋</div><div class="backup-desc">獨特水上木造建築</div></div>
+        <div class="backup-emoji">🏠</div><div class="backup-info"><div class="backup-name">伊根舟屋</div><div class="backup-desc">水上木造建築 · 舟屋遊覧船</div></div><span class="backup-badge bb-must">必去</span>
+      </a>
+      <a href="https://www.google.com/maps/search/鴨川+京都" target="_blank" rel="noopener" class="backup-card">
+        <div class="backup-emoji">🌅</div><div class="backup-info"><div class="backup-name">鴨川</div><div class="backup-desc">黃昏散步 · 納涼床（5/1 正式開幕）</div></div>
+      </a>
+      <!-- 額外推薦景點 -->
+      <a href="https://www.google.com/maps/search/蹴上傾斜鐵道+京都" target="_blank" rel="noopener" class="backup-card">
+        <div class="backup-emoji">🚂</div><div class="backup-info"><div class="backup-name">蹴上傾斜鐵道</div><div class="backup-desc">廢棄鐵路 · 春季紫藤花拍照聖地 · 南禪寺旁</div></div><span class="backup-badge bb-extra">＋推薦</span>
+      </a>
+      <a href="https://www.google.com/maps/search/哲學之道+京都" target="_blank" rel="noopener" class="backup-card">
+        <div class="backup-emoji">🌸</div><div class="backup-info"><div class="backup-name">哲學之道</div><div class="backup-desc">沿疏水道散步 · 銀閣寺 ↔ 南禪寺 · 春夏均美</div></div><span class="backup-badge bb-extra">＋推薦</span>
+      </a>
+      <a href="https://www.google.com/maps/search/錦天滿宮+京都" target="_blank" rel="noopener" class="backup-card">
+        <div class="backup-emoji">⛩️</div><div class="backup-info"><div class="backup-name">錦天滿宮</div><div class="backup-desc">藏身錦市場內的小神社 · 學問之神</div></div><span class="backup-badge bb-extra">＋推薦</span>
+      </a>
+      <a href="https://www.google.com/maps/search/八坂神社+京都" target="_blank" rel="noopener" class="backup-card">
+        <div class="backup-emoji">🏮</div><div class="backup-info"><div class="backup-name">八坂神社</div><div class="backup-desc">祇園守護神 · 夜間朱燈極美</div></div><span class="backup-badge bb-extra">＋推薦</span>
+      </a>
+      <a href="https://www.google.com/maps/search/南禪寺+京都" target="_blank" rel="noopener" class="backup-card">
+        <div class="backup-emoji">🌿</div><div class="backup-info"><div class="backup-name">南禪寺</div><div class="backup-desc">壯觀三門 · 水路閣磚造拱橋 · 藍瓶步行可達</div></div><span class="backup-badge bb-extra">＋推薦</span>
+      </a>
+      <a href="https://www.google.com/maps/search/伏見稲荷大社+京都" target="_blank" rel="noopener" class="backup-card">
+        <div class="backup-emoji">🦊</div><div class="backup-info"><div class="backup-name">伏見稻荷大社</div><div class="backup-desc">千本鳥居 · 早晨人少最美 · 建議 Day 3 順路</div></div><span class="backup-badge bb-extra">＋推薦</span>
+      </a>
+      <a href="https://www.google.com/maps/search/祇園+花見小路+京都" target="_blank" rel="noopener" class="backup-card">
+        <div class="backup-emoji">🏯</div><div class="backup-info"><div class="backup-name">花見小路</div><div class="backup-desc">祇園傳統藝妓街道 · 傍晚最有氣氛</div></div><span class="backup-badge bb-extra">＋推薦</span>
+      </a>
+      <a href="https://www.google.com/maps/search/二条城+京都" target="_blank" rel="noopener" class="backup-card">
+        <div class="backup-emoji">🏯</div><div class="backup-info"><div class="backup-name">二条城</div><div class="backup-desc">世界遺產 · 鶯聲走廊 · 屬於若時間充裕的選項</div></div><span class="backup-badge bb-extra">＋推薦</span>
       </a>
     </div>
 
+    <!-- 購物 -->
     <div class="backup-category">
-      <h3>🛍️ 購物與選物</h3>
-      <a href="https://www.google.com/maps/search/?api=1&query=Matsumotokiyoshi+Kyoto+Station" target="_blank" rel="noopener" class="backup-card">
-        <div class="backup-emoji">💊</div><div class="backup-info"><div class="backup-name">松本清 / Welcia 藥妝</div><div class="backup-desc">京都站八条口周邊</div></div>
+      <h3>🛍️ 購物 &amp; 選物</h3>
+      <a href="https://www.google.com/maps/search/松本清+Welcia+京都駅" target="_blank" rel="noopener" class="backup-card">
+        <div class="backup-emoji">💊</div><div class="backup-info"><div class="backup-name">松本清 / Welcia 藥妝</div><div class="backup-desc">京都站八条口周邊</div></div><span class="backup-badge bb-must">必掃</span>
       </a>
       <a href="https://www.google.com/maps/search/Kyoto+BAL" target="_blank" rel="noopener" class="backup-card">
-        <div class="backup-emoji">🏬</div><div class="backup-info"><div class="backup-name">Kyoto BAL</div><div class="backup-desc">四條河原町 質感百貨</div></div>
+        <div class="backup-emoji">🏬</div><div class="backup-info"><div class="backup-name">Kyoto BAL</div><div class="backup-desc">四條河原町 · 質感百貨</div></div>
       </a>
       <a href="https://www.google.com/maps/search/藤井大丸+京都" target="_blank" rel="noopener" class="backup-card">
-        <div class="backup-emoji">🏬</div><div class="backup-info"><div class="backup-name">藤井大丸</div><div class="backup-desc">四條 時尚潮流百貨</div></div>
+        <div class="backup-emoji">🏬</div><div class="backup-info"><div class="backup-name">藤井大丸</div><div class="backup-desc">四條 · 時尚潮流百貨</div></div>
       </a>
       <a href="https://maps.app.goo.gl/QtG8enG3QCWmCCVf8" target="_blank" rel="noopener" class="backup-card">
-        <div class="backup-emoji">🏠</div><div class="backup-info"><div class="backup-name">D&DEPARTMENT KYOTO</div><div class="backup-desc">優質設計選物 (強力推薦)</div></div>
+        <div class="backup-emoji">🏠</div><div class="backup-info"><div class="backup-name">D&amp;DEPARTMENT KYOTO</div><div class="backup-desc">優質設計選物 · 強力推薦</div></div><span class="backup-badge bb-must">必去</span>
       </a>
       <a href="https://maps.app.goo.gl/fbg6mcCC6owbRi6eA" target="_blank" rel="noopener" class="backup-card">
-        <div class="backup-emoji">🕯️</div><div class="backup-info"><div class="backup-name">Shoyeido 松榮堂 本店</div><div class="backup-desc">京都製香專門老鋪</div></div>
+        <div class="backup-emoji">🕯️</div><div class="backup-info"><div class="backup-name">Shoyeido 松榮堂 本店</div><div class="backup-desc">京都製香老鋪 · 各式線香</div></div>
       </a>
       <a href="https://maps.app.goo.gl/r8uHnMtZwj2dXFJz6" target="_blank" rel="noopener" class="backup-card">
         <div class="backup-emoji">🎨</div><div class="backup-info"><div class="backup-name">creative OOO</div><div class="backup-desc">創意選物小店</div></div>
@@ -547,22 +727,26 @@
         <div class="backup-emoji">🎒</div><div class="backup-info"><div class="backup-name">VOU/棒</div><div class="backup-desc">獨立品牌設計選物</div></div>
       </a>
       <a href="https://maps.app.goo.gl/yWR3DeqpNJfbH75Y7" target="_blank" rel="noopener" class="backup-card">
-        <div class="backup-emoji">👜</div><div class="backup-info"><div class="backup-name">TEMBEA Kyoto</div><div class="backup-desc">人氣帆布包品牌</div></div>
-      </a>
-      <a href="https://www.google.com/maps/search/中村藤吉本店+宇治" target="_blank" rel="noopener" class="backup-card">
-        <div class="backup-emoji">🍃</div><div class="backup-info"><div class="backup-name">中村藤吉本店 (宇治)</div><div class="backup-desc">頂級抹茶甜點與茶葉</div></div>
+        <div class="backup-emoji">👜</div><div class="backup-info"><div class="backup-name">TEMBEA Kyoto</div><div class="backup-desc">人氣帆布包 · 京都限定款</div></div>
       </a>
       <a href="https://maps.app.goo.gl/LHMFEQDVANpghCYA8" target="_blank" rel="noopener" class="backup-card">
-        <div class="backup-emoji">🎂</div><div class="backup-info"><div class="backup-name">Chez Hagata (宇治)</div><div class="backup-desc">必買伴手禮：抹茶醬麋蛋糕</div></div>
+        <div class="backup-emoji">🎂</div><div class="backup-info"><div class="backup-name">Chez Hagata（宇治）</div><div class="backup-desc">必買伴手禮 · 抹茶醬麋蛋糕</div></div><span class="backup-badge bb-must">必買</span>
       </a>
       <a href="https://maps.app.goo.gl/7WnEXfacvAesoaw69" target="_blank" rel="noopener" class="backup-card">
-        <div class="backup-emoji">🍃</div><div class="backup-info"><div class="backup-name">堀井七茗園 (宇治)</div><div class="backup-desc">歷史悠久的高級茶舖</div></div>
+        <div class="backup-emoji">🍃</div><div class="backup-info"><div class="backup-name">堀井七茗園（宇治）</div><div class="backup-desc">高級抹茶茶葉老舖</div></div>
       </a>
       <a href="https://maps.app.goo.gl/uENTe3VvgRGsPzmH7" target="_blank" rel="noopener" class="backup-card">
-        <div class="backup-emoji">🛒</div><div class="backup-info"><div class="backup-name">Appro 食品館 (宇治)</div><div class="backup-desc">在地超市，超好買抹茶商品</div></div>
+        <div class="backup-emoji">🛒</div><div class="backup-info"><div class="backup-name">Appro 食品館（宇治）</div><div class="backup-desc">在地超市 · 超好買抹茶商品</div></div><span class="backup-badge bb-must">必去</span>
       </a>
-      <a href="https://maps.app.goo.gl/r4r7n2LYTyBmHxqg7" target="_blank" rel="noopener" class="backup-card">
-        <div class="backup-emoji">🍃</div><div class="backup-info"><div class="backup-name">Jinjiro Tea Shop (宇治)</div><div class="backup-desc">宇治在地老字號茶舖</div></div>
+      <!-- 額外推薦購物 -->
+      <a href="https://www.google.com/maps/search/一保堂茶舖+京都" target="_blank" rel="noopener" class="backup-card">
+        <div class="backup-emoji">🍵</div><div class="backup-info"><div class="backup-name">一保堂茶舖（京都市區）</div><div class="backup-desc">頂級京都茶舖 · 寺町通老舖 · 可內用</div></div><span class="backup-badge bb-extra">＋推薦</span>
+      </a>
+      <a href="https://www.google.com/maps/search/京都伊勢丹地下+京都駅" target="_blank" rel="noopener" class="backup-card">
+        <div class="backup-emoji">🏬</div><div class="backup-info"><div class="backup-name">京都駅 伊勢丹地下食品街</div><div class="backup-desc">最終採買必去 · 熟食 / 甜點 / 伴手禮</div></div><span class="backup-badge bb-extra">＋推薦</span>
+      </a>
+      <a href="https://www.google.com/maps/search/nishiki+market+Kyoto" target="_blank" rel="noopener" class="backup-card">
+        <div class="backup-emoji">🏮</div><div class="backup-info"><div class="backup-name">錦市場</div><div class="backup-desc">醃漬物 / 漬物 / 京都食材採買</div></div><span class="backup-badge bb-extra">＋推薦</span>
       </a>
     </div>
 
@@ -570,56 +754,56 @@
 </section>
 
 
+<!-- ════════ PAGE 3: 常用日文 ════════ -->
 <section id="page-japanese" class="page-section">
   <div class="page-header">
     <h2 class="page-title">常用日文</h2>
     <div class="page-subtitle">Japanese Phrases · 點擊喇叭播放發音</div>
   </div>
   <div class="page-content" id="phrase-root">
-
-    <div class="phrase-notice">
-      🔊 點擊右側 <strong>喇叭按鈕</strong> 即可播放日文發音。點餐、買東西、問路時可以直接放給店員聽喔！
-    </div>
+    <div class="phrase-notice">🔊 點擊右側 <strong>喇叭按鈕</strong> 即可播放日文發音，可直接放給店員聽。再按一次停止。</div>
 
     <div class="phrase-cat">
-      <div class="phrase-cat-header">🍽️ 餐廳 & 點餐</div>
+      <div class="phrase-cat-header">🍽️ 餐廳 &amp; 點餐</div>
       <div class="phrase-item"><div class="phrase-text"><div class="phrase-zh">我有預約，姓＿＿</div><div class="phrase-ja">予約しています。＿＿です。</div><div class="phrase-read">Yoyaku shite imasu. __ desu.</div></div><button class="speak-btn" onclick="speak('予約しています',this)"><svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg></button></div>
       <div class="phrase-item"><div class="phrase-text"><div class="phrase-zh">這個請給我</div><div class="phrase-ja">これをください</div><div class="phrase-read">Kore wo kudasai</div></div><button class="speak-btn" onclick="speak('これをください',this)"><svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg></button></div>
-      <div class="phrase-item"><div class="phrase-text"><div class="phrase-zh">有中文/英文菜單嗎？</div><div class="phrase-ja">中国語、または英語のメニューはありますか？</div><div class="phrase-read">Chuugokugo, matawa eigo no menyuu wa arimasu ka?</div></div><button class="speak-btn" onclick="speak('中国語、または英語のメニューはありますか？',this)"><svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg></button></div>
+      <div class="phrase-item"><div class="phrase-text"><div class="phrase-zh">有中文 / 英文菜單嗎？</div><div class="phrase-ja">中国語、または英語のメニューはありますか？</div><div class="phrase-read">Chuugokugo, matawa eigo no menyuu wa arimasu ka?</div></div><button class="speak-btn" onclick="speak('中国語、または英語のメニューはありますか？',this)"><svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg></button></div>
       <div class="phrase-item"><div class="phrase-text"><div class="phrase-zh">不含蔥（對蔥過敏）</div><div class="phrase-ja">ねぎなしでお願いします</div><div class="phrase-read">Negi nashi de onegai shimasu</div></div><button class="speak-btn" onclick="speak('ねぎなしでお願いします',this)"><svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg></button></div>
       <div class="phrase-item"><div class="phrase-text"><div class="phrase-zh">請幫我結帳</div><div class="phrase-ja">お会計をお願いします</div><div class="phrase-read">Okaikei wo onegai shimasu</div></div><button class="speak-btn" onclick="speak('お会計をお願いします',this)"><svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg></button></div>
+      <div class="phrase-item"><div class="phrase-text"><div class="phrase-zh">好吃！</div><div class="phrase-ja">おいしい！</div><div class="phrase-read">Oishii!</div></div><button class="speak-btn" onclick="speak('おいしい',this)"><svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg></button></div>
     </div>
 
     <div class="phrase-cat">
-      <div class="phrase-cat-header">🛍️ 購物 & 藥妝</div>
+      <div class="phrase-cat-header">🛍️ 購物 &amp; 藥妝</div>
       <div class="phrase-item"><div class="phrase-text"><div class="phrase-zh">請問可以試穿嗎？</div><div class="phrase-ja">試着してもいいですか？</div><div class="phrase-read">Shichaku shite mo ii desu ka?</div></div><button class="speak-btn" onclick="speak('試着してもいいですか',this)"><svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg></button></div>
-      <div class="phrase-item"><div class="phrase-text"><div class="phrase-zh">有其他尺寸/顏色嗎？</div><div class="phrase-ja">これの違うサイズ（色）はありますか？</div><div class="phrase-read">Kore no chigau saizu/iro wa arimasu ka?</div></div><button class="speak-btn" onclick="speak('これの違うサイズや色はありますか',this)"><svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg></button></div>
+      <div class="phrase-item"><div class="phrase-text"><div class="phrase-zh">有其他尺寸 / 顏色嗎？</div><div class="phrase-ja">これの違うサイズ（色）はありますか？</div><div class="phrase-read">Kore no chigau saizu (iro) wa arimasu ka?</div></div><button class="speak-btn" onclick="speak('これの違うサイズや色はありますか',this)"><svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg></button></div>
       <div class="phrase-item"><div class="phrase-text"><div class="phrase-zh">請問可以退稅嗎？</div><div class="phrase-ja">免税になりますか？</div><div class="phrase-read">Menzei ni narimasu ka?</div></div><button class="speak-btn" onclick="speak('免税になりますか',this)"><svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg></button></div>
       <div class="phrase-item"><div class="phrase-text"><div class="phrase-zh">請問可以刷卡嗎？</div><div class="phrase-ja">カードで払えますか？</div><div class="phrase-read">Kaado de haraemasu ka?</div></div><button class="speak-btn" onclick="speak('カードで払えますか',this)"><svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg></button></div>
       <div class="phrase-item"><div class="phrase-text"><div class="phrase-zh">請給我一個袋子</div><div class="phrase-ja">袋をください</div><div class="phrase-read">Fukuro wo kudasai</div></div><button class="speak-btn" onclick="speak('袋をください',this)"><svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg></button></div>
     </div>
 
     <div class="phrase-cat">
-      <div class="phrase-cat-header">📸 觀光 & 交通問路</div>
-      <div class="phrase-item"><div class="phrase-text"><div class="phrase-zh">可以幫我拍照嗎？</div><div class="phrase-ja">写真を撮っていただけますか？</div><div class="phrase-read">Shashin o totte itadakemasu ka?</div></div><button class="speak-btn" onclick="speak('写真を撮っていただけますか？',this)"><svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg></button></div>
-      <div class="phrase-item"><div class="phrase-text"><div class="phrase-zh">請問洗手間在哪裡？</div><div class="phrase-ja">お手洗いはどこですか？</div><div class="phrase-read">Otearai wa doko desu ka?</div></div><button class="speak-btn" onclick="speak('お手洗いはどこですか？',this)"><svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg></button></div>
-      <div class="phrase-item"><div class="phrase-text"><div class="phrase-zh">請問有投幣式置物櫃嗎？</div><div class="phrase-ja">コインロッカーはありますか？</div><div class="phrase-read">Koin rokkaa wa arimasu ka?</div></div><button class="speak-btn" onclick="speak('コインロッカーはありますか？',this)"><svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg></button></div>
+      <div class="phrase-cat-header">📸 觀光 &amp; 交通問路</div>
+      <div class="phrase-item"><div class="phrase-text"><div class="phrase-zh">可以幫我拍照嗎？</div><div class="phrase-ja">写真を撮っていただけますか？</div><div class="phrase-read">Shashin o totte itadakemasu ka?</div></div><button class="speak-btn" onclick="speak('写真を撮っていただけますか',this)"><svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg></button></div>
+      <div class="phrase-item"><div class="phrase-text"><div class="phrase-zh">請問洗手間在哪裡？</div><div class="phrase-ja">お手洗いはどこですか？</div><div class="phrase-read">Otearai wa doko desu ka?</div></div><button class="speak-btn" onclick="speak('お手洗いはどこですか',this)"><svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg></button></div>
+      <div class="phrase-item"><div class="phrase-text"><div class="phrase-zh">請問有投幣式置物櫃嗎？</div><div class="phrase-ja">コインロッカーはありますか？</div><div class="phrase-read">Koin rokkaa wa arimasu ka?</div></div><button class="speak-btn" onclick="speak('コインロッカーはありますか',this)"><svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg></button></div>
       <div class="phrase-item"><div class="phrase-text"><div class="phrase-zh">請問車站怎麼走？</div><div class="phrase-ja">駅はどこですか？</div><div class="phrase-read">Eki wa doko desu ka?</div></div><button class="speak-btn" onclick="speak('駅はどこですか',this)"><svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg></button></div>
       <div class="phrase-item"><div class="phrase-text"><div class="phrase-zh">這班車有到＿＿嗎？</div><div class="phrase-ja">この電車は＿＿に行きますか？</div><div class="phrase-read">Kono densha wa __ ni ikimasu ka?</div></div><button class="speak-btn" onclick="speak('この電車はどこに行きますか',this)"><svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg></button></div>
     </div>
 
     <div class="phrase-cat">
-      <div class="phrase-cat-header">👋 基礎應答 & 緊急</div>
+      <div class="phrase-cat-header">👋 基礎應答 &amp; 緊急</div>
       <div class="phrase-item"><div class="phrase-text"><div class="phrase-zh">謝謝</div><div class="phrase-ja">ありがとうございます</div><div class="phrase-read">Arigatou gozaimasu</div></div><button class="speak-btn" onclick="speak('ありがとうございます',this)"><svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg></button></div>
       <div class="phrase-item"><div class="phrase-text"><div class="phrase-zh">不好意思 / 請問一下</div><div class="phrase-ja">すみません</div><div class="phrase-read">Sumimasen</div></div><button class="speak-btn" onclick="speak('すみません',this)"><svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg></button></div>
       <div class="phrase-item"><div class="phrase-text"><div class="phrase-zh">我迷路了</div><div class="phrase-ja">道に迷いました</div><div class="phrase-read">Michi ni mayoimashita</div></div><button class="speak-btn" onclick="speak('道に迷いました',this)"><svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg></button></div>
       <div class="phrase-item"><div class="phrase-text"><div class="phrase-zh">我身體不舒服</div><div class="phrase-ja">気分が悪いです</div><div class="phrase-read">Kibun ga warui desu</div></div><button class="speak-btn" onclick="speak('気分が悪いです',this)"><svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg></button></div>
+      <div class="phrase-item"><div class="phrase-text"><div class="phrase-zh">叫救護車！</div><div class="phrase-ja">救急車を呼んでください！</div><div class="phrase-read">Kyuukyuusha wo yonde kudasai!</div></div><button class="speak-btn" onclick="speak('救急車を呼んでください',this)"><svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg></button></div>
     </div>
-
   </div>
 </section>
 
 
+<!-- BOTTOM NAV -->
 <nav class="bottom-nav">
   <button class="nav-btn active" onclick="switchPage('page-itinerary',this)">
     <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
@@ -637,81 +821,148 @@
 
 
 <script>
-  /* ─── 分頁切換 ─── */
-  function switchPage(id, btn) {
-    document.querySelectorAll('.page-section').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
-    btn.classList.add('active');
-    window.scrollTo({ top: 0, behavior: 'instant' });
+/* ─── 分頁切換 ─── */
+function switchPage(id, btn) {
+  document.querySelectorAll('.page-section').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'instant' });
+}
+
+function scrollToDay(e, id) {
+  e.preventDefault();
+  document.querySelectorAll('.page-section').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('page-itinerary').classList.add('active');
+  document.querySelector('.nav-btn').classList.add('active');
+  requestAnimationFrame(() => {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+}
+
+/* ─── 天氣自動更新（Open-Meteo API，免費無需金鑰）─── */
+// 京都座標
+const KYOTO_LAT = 35.0116, KYOTO_LON = 135.7681;
+
+// 行程日期（固定）
+const TRIP_DATES = ['2026-04-30','2026-05-01','2026-05-02','2026-05-03','2026-05-04'];
+
+// WMO 天氣代碼 → emoji
+function wmoToEmoji(code) {
+  if (code === 0) return '☀️';
+  if (code <= 2) return '⛅';
+  if (code === 3) return '☁️';
+  if (code <= 49) return '🌫️';
+  if (code <= 67) return '🌧️';
+  if (code <= 77) return '🌨️';
+  if (code <= 82) return '🌦️';
+  if (code <= 99) return '⛈️';
+  return '🌡️';
+}
+
+// 更新各天氣元素
+function applyWeather(idx, minT, maxT, icon, isLive) {
+  // Timeline
+  const tlIcon = document.getElementById(`tl-icon-${idx}`);
+  const tlTemp = document.getElementById(`tl-temp-${idx}`);
+  if (tlIcon) tlIcon.textContent = icon;
+  if (tlTemp) {
+    tlTemp.textContent = `${Math.round(minT)}–${Math.round(maxT)}°C`;
+    if (isLive) tlTemp.classList.add('live');
+  }
+  // Day card badge
+  const dNum = idx + 1;
+  const dIcon = document.getElementById(`d${dNum}-icon`);
+  const dTemp = document.getElementById(`d${dNum}-temp`);
+  if (dIcon) dIcon.textContent = icon;
+  if (dTemp) {
+    dTemp.textContent = `${Math.round(minT)}–${Math.round(maxT)}°C`;
+    if (isLive) dTemp.classList.add('live');
+  }
+}
+
+async function fetchWeather() {
+  const status = document.getElementById('weather-status');
+  const today = new Date();
+  const todayStr = today.toISOString().slice(0,10);
+
+  // 只有出發前 14 天內或行程期間才呼叫 API
+  const firstDate = new Date(TRIP_DATES[0]);
+  const diffDays = (firstDate - today) / 86400000;
+
+  if (diffDays > 14) {
+    if (status) status.textContent = `🗓 出發前 14 天將自動更新即時天氣（目前顯示預估氣溫）`;
+    return;
   }
 
-  /* ─── Timeline 點擊跳到 day-card ─── */
-  function scrollToDay(e, id) {
-    e.preventDefault();
-    document.querySelectorAll('.page-section').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-    document.getElementById('page-itinerary').classList.add('active');
-    document.querySelector('.nav-btn').classList.add('active');
-    requestAnimationFrame(() => {
-      const el = document.getElementById(id);
-      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  try {
+    const startDate = TRIP_DATES[0];
+    const endDate   = TRIP_DATES[TRIP_DATES.length - 1];
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${KYOTO_LAT}&longitude=${KYOTO_LON}&daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=Asia%2FTokyo&start_date=${startDate}&end_date=${endDate}`;
+
+    const res = await fetch(url);
+    if (!res.ok) throw new Error('API error');
+    const data = await res.json();
+
+    const { daily } = data;
+    if (!daily || !daily.time) throw new Error('No data');
+
+    TRIP_DATES.forEach((date, idx) => {
+      const i = daily.time.indexOf(date);
+      if (i === -1) return;
+      const minT = daily.temperature_2m_min[i];
+      const maxT = daily.temperature_2m_max[i];
+      const icon = wmoToEmoji(daily.weathercode[i]);
+      const isLive = date >= todayStr;
+      applyWeather(idx, minT, maxT, icon, isLive);
     });
+
+    if (status) status.textContent = `🌡 氣溫資料已更新（來源：Open-Meteo · 京都）`;
+  } catch(e) {
+    if (status) status.textContent = `無法取得即時天氣，顯示預估氣溫`;
+    console.warn('Weather fetch failed:', e);
   }
+}
 
-  /* ─── 日文語音播放（Web Speech API）─── */
-  let currentUtterance = null;
-  let currentBtn = null;
+// 頁面載入後抓天氣
+document.addEventListener('DOMContentLoaded', fetchWeather);
 
-  // 偵測是否支援
-  if (!('speechSynthesis' in window)) {
-    document.getElementById('phrase-root').classList.add('no-tts');
-  }
+/* ─── 日文語音播放 ─── */
+let currentBtn = null;
 
-  function speak(text, btn) {
-    if (!('speechSynthesis' in window)) return;
+if (!('speechSynthesis' in window)) {
+  const root = document.getElementById('phrase-root');
+  if (root) root.classList.add('no-tts');
+}
 
-    // 若同一個按鈕再按一次 → 停止
-    if (currentBtn === btn && speechSynthesis.speaking) {
-      speechSynthesis.cancel();
-      btn.classList.remove('playing');
-      currentBtn = null;
-      return;
-    }
-
-    // 停止前一個
-    if (speechSynthesis.speaking) {
-      speechSynthesis.cancel();
-      if (currentBtn) currentBtn.classList.remove('playing');
-    }
-
-    const utter = new SpeechSynthesisUtterance(text);
-    utter.lang = 'ja-JP';
-    utter.rate = 0.88;   // 稍慢，聽得清楚
-    utter.pitch = 1.0;
-
-    // 嘗試選用日文語音
-    const voices = speechSynthesis.getVoices();
-    const jaVoice = voices.find(v => v.lang === 'ja-JP') || voices.find(v => v.lang.startsWith('ja'));
-    if (jaVoice) utter.voice = jaVoice;
-
-    utter.onstart = () => {
-      btn.classList.add('playing');
-      currentBtn = btn;
-    };
-    utter.onend = utter.onerror = () => {
-      btn.classList.remove('playing');
-      if (currentBtn === btn) currentBtn = null;
-    };
-
-    // iOS 需要先 cancel 才能順利播放
+function speak(text, btn) {
+  if (!('speechSynthesis' in window)) return;
+  if (currentBtn === btn && speechSynthesis.speaking) {
     speechSynthesis.cancel();
-    setTimeout(() => speechSynthesis.speak(utter), 50);
-    currentUtterance = utter;
+    btn.classList.remove('playing');
+    currentBtn = null;
+    return;
   }
+  if (speechSynthesis.speaking) {
+    speechSynthesis.cancel();
+    if (currentBtn) currentBtn.classList.remove('playing');
+  }
+  const utter = new SpeechSynthesisUtterance(text);
+  utter.lang = 'ja-JP';
+  utter.rate = 0.88;
+  utter.pitch = 1.0;
+  const voices = speechSynthesis.getVoices();
+  const jaVoice = voices.find(v => v.lang === 'ja-JP') || voices.find(v => v.lang.startsWith('ja'));
+  if (jaVoice) utter.voice = jaVoice;
+  utter.onstart = () => { btn.classList.add('playing'); currentBtn = btn; };
+  utter.onend = utter.onerror = () => { btn.classList.remove('playing'); if (currentBtn === btn) currentBtn = null; };
+  speechSynthesis.cancel();
+  setTimeout(() => speechSynthesis.speak(utter), 50);
+}
 
-  // 語音列表非同步載入（iOS / Chrome 需要）
-  speechSynthesis.onvoiceschanged = () => { speechSynthesis.getVoices(); };
+speechSynthesis.onvoiceschanged = () => { speechSynthesis.getVoices(); };
 </script>
 </body>
 </html>
