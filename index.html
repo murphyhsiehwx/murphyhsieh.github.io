@@ -844,6 +844,12 @@
   </button>
 </nav>
 
+<!-- === 回到頂部懸浮按鈕 (一定要放在 script 前面) === -->
+<button id="backToTopBtn" class="back-to-top-btn" onclick="scrollToTop()" title="回到頂部">
+  <svg viewBox="0 0 24 24">
+    <path d="M12 4l-8 8h6v8h4v-8h6z"/>
+  </svg>
+</button>
 
 <script>
 /* ─── 分頁切換 ─── */
@@ -1005,17 +1011,6 @@ function speak(text, btn) {
 
 speechSynthesis.onvoiceschanged = () => { speechSynthesis.getVoices(); };
 
-<!-- === 回到頂部懸浮按鈕 === -->
-<button id="backToTopBtn" class="back-to-top-btn" onclick="scrollToTop()" title="回到頂部">
-  <svg viewBox="0 0 24 24">
-    <path d="M12 4l-8 8h6v8h4v-8h6z"/>
-  </svg>
-</button>
-
-<!-- === 然後再放腳本 === -->
-<script>
-// ... 你的所有 JS 程式碼 ...
 </script>
-  
 </body>
 </html>
